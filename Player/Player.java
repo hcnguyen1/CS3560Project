@@ -1,4 +1,3 @@
-package Player;
-public class Player {
-    
-}
+package player;
+
+public class Player {}

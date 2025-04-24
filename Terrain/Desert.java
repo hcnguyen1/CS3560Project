@@ -1,5 +1,3 @@
-package Terrain;
+package terrain;
 
-public class Desert {
-    
-}
+public class Desert {}

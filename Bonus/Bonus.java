@@ -1,4 +1,3 @@
-package Bonus;
-public interface Bonus {
-    
-}
+package bonus;
+
+public interface Bonus {}

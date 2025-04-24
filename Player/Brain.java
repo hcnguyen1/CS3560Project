@@ -1,5 +1,3 @@
-package Player;
+package player;
 
-public class Brain {
-    
-}
+public class Brain {}

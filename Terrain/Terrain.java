@@ -1,4 +1,3 @@
-package Terrain;
-public class Terrain {
-    
-}
+package terrain;
+
+public class Terrain {}

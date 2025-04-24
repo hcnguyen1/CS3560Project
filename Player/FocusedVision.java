@@ -1,4 +1,3 @@
-package Player;
-public class FocusedVision {
+package player;
 
-}
+public class FocusedVision {}

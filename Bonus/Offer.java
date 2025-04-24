@@ -1,5 +1,3 @@
-package Bonus;
+package bonus;
 
-public class Offer {
-    
-}
+public class Offer {}

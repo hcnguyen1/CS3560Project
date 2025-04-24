@@ -1,5 +1,3 @@
-package Player;
+package player;
 
-public class FarSight {
-    
-}
+public class FarSight {}

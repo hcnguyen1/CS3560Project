@@ -1,4 +1,3 @@
-package Player;
-public class Vision {
-    
-}
+package player;
+
+public class Vision {}
