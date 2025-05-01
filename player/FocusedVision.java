@@ -1,3 +1,3 @@
 package player;
 
-public class FocusedVision {}
+public class FocusedVision extends Vision{}

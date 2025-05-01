@@ -1,3 +1,3 @@
 package player;
 
-public class KeenEyedVision {}
+public class KeenEyedVision extends CautiousVision{}

@@ -1,3 +1,3 @@
 package player;
 
-public class FarSight {}
+public class FarSight extends KeenEyedVision{}
