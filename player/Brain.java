@@ -60,15 +60,116 @@ public class Brain {
     }
 
     private void scavengerStrategy() {
-        
+        // Get the closest and second closest resource paths (food or water)
+        Path closest = vision.getClosestResource();
+        Path second = vision.getSecondClosestResource();
+        Path trader = null;
+
+        // If the player has enough gold, include a trader path in the options
+        if (player.getGoldAmount() > goldThreshold) {
+            trader = vision.getClosestTrader();
+        }
+
+        // Evaluate all options and choose the best path based on resource needs and cost
+        Path bestPath = costBenefitAnalysis(closest, second, trader);
+
+        if (bestPath != null) {
+            // Set the best path as the current path and move along it
+            currentPath = bestPath;
+            currentPath.takePath();
+
+            // If the new tile has a resource bonus, collect it
+            if (player.getCurrentTerrain().hasFoodBonus() || player.getCurrentTerrain().hasGoldBonus() || player.getCurrentTerrain().hasWaterBonus()) {
+                player.useBonus();
+            }
+
+            // Apply the movement cost of the tile
+            player.useCost(bestPath.getCost());
+        }
+        else {
+            // If no valid paths were found, stay in place and recover half the cost
+            this.stay();
+        }
+
     }
 
     private void equalizerStrategy() {
-        
+        Path first = null;
+        Path second = null;
+    
+        // If food is below the threshold, look for the two closest food sources
+        if (player.getFoodAmount() < foodThreshold) {
+            first = vision.getClosestFood();
+            second = vision.getSecondClosestFood();
+        }
+    
+        // If water is below the threshold, look for the two closest water sources
+        if (player.getWaterAmount() < waterThreshold) {
+            first = vision.getClosestWater();
+            second = vision.getSecondClosestWater();
+        }
+    
+        // Always consider a path to the closest trader
+        Path trader = vision.getClosestTrader();
+    
+        // Choose the best path out of the two resources and the trader
+        Path bestPath = costBenefitAnalysis(first, second, trader);
+
+        if (bestPath != null) {
+            // Move along the selected best path
+            currentPath = bestPath;
+            currentPath.takePath();
+    
+            // Use bonus on the tile if one exists
+            if (player.getCurrentTerrain().hasBonus()) {
+                player.useBonus();
+            }
+    
+            // Apply movement cost
+            player.useCost(bestPath.getCost());
+        } else {
+            // If no path is found, stay on current tile
+            this.stay(); // fallback
+        }
     }
 
     private void lowOnOneStrategy() {
-        
+        Path p1 = null;
+        Path p2 = null;
+
+
+        // If food is below the threshold, get the two closest food paths
+        if (player.getFoodAmount() < foodThreshold) {
+            p1 = vision.getClosestFood();
+            p2 = vision.getSecondClosestFood();
+        }
+    
+        // If water is below the threshold, get the two closest water paths
+        if (player.getWaterAmount() < waterThreshold) {
+            p1 = vision.getClosestWater();
+            p2 = vision.getSecondClosestWater();
+        }
+    
+        // Choose the best path between the two resource paths (no trader considered here)
+        Path bestPath = costBenefitAnalysis(p1, p2, null); // null trader path
+    
+        if (bestPath != null) {
+            // Move along the best path
+            currentPath = bestPath;
+            currentPath.takePath();
+    
+            // Use any bonus on the new tile
+            if (player.getCurrentTerrain().hasBonus()) {
+                player.useBonus();
+            }
+    
+            // Apply cost for moving to the new tile
+            player.useCost(bestPath.getCost());
+        } else {
+            // Stay in place if no useful path is found
+            this.stay(); // fallback if no valid path
+        }
+    
     }
 
     //Take the easiest path
@@ -85,5 +186,12 @@ public class Brain {
         //use the bonuses at the terrain the player enters
         //the path object takes care of the costs
         player.useBonus();
+    }
+
+    private Path costBenefitAnalysis (Path p1, Path p2, Path traderPat) {
+        Path best = null;
+
+
+
     }
 }
