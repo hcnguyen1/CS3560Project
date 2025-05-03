@@ -14,13 +14,16 @@ public class Path {
         player = p;
     }
 
-    public void setNextCoord(int Xcoord, int Ycoord) {
+    public boolean setNextCoord(int Xcoord, int Ycoord) {
         Terrain t = Map.getTerrain(Xcoord, Ycoord);
         if (t != null) {
             movesX[nextStep] = Xcoord;
             movesY[nextStep] = Ycoord;
             nextStep++;
-            costs.addCost(t.getCost());
+            costs.add(t.getCost());
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -28,7 +31,11 @@ public class Path {
         return numSteps;
     }
 
-    public int getNextCost() {
+    public int getStepX() {
+        return movesX[nextStep];
+    }
+
+    public Cost getNextCost() {
         if(numSteps+1<= nextStep) {
             return Map.getTerrain(movesX[numSteps+1],movesY[numSteps+1]).getCost();
         }
@@ -51,5 +58,9 @@ public class Path {
             Terrain t = player.getCurrentTerrain();
             player.useCost(t.getCost());
         }
+    }
+
+    public Terrain getDestination() {
+        return Map.getTerrain(movesX[nextStep], movesY[nextStep]);
     }
 }
