@@ -1,5 +1,8 @@
 package player;
 import terrain.Path;
+
+import java.util.List;
+
 import terrain.Cost;
 
 public class Brain {
@@ -228,9 +231,9 @@ public class Brain {
     //Take the easiest path
     //generates a new easiest path when currentPath is null, otherwise continue on the path
     private void richStrategy() {
-        if (currentPath == null || currentPath.getNumSteps == 0) {
-            Path paths[] = vision.easiestPath();
-            currentPath = paths[0];
+        if (currentPath == null || currentPath.getNumSteps() == 0) {
+            List<Path> paths = vision.easiestPath();
+            currentPath = paths.get(0);
             currentPath.takePath();
         } else { 
             currentPath.takePath();
