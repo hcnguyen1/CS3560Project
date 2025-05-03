@@ -8,76 +8,54 @@ import java.util.List;
 public abstract class Vision {
 
     // ==== Fields ====
-    protected int playerLocationX;
-    protected int playerLocationY;
-    protected Terrain[][] map;
     protected Player player;
 
     // ==== Constructor ====
-    public Vision(Player player, Terrain[][] map) {
-        this.player = player;
-        this.map = map;
-    }
-
-    // ==== Basic Utility Methods ====
-
-    // Sets the player’s current location on the map
-    public void setLocation(int x, int y) {
-        this.playerLocationX = x;
-        this.playerLocationY = y;
-    }
-
-    // Returns the terrain at a specific x, y coordinate if it's valid
-    public Terrain checkSquare(int x, int y) {
-        if (x >= 0 && y >= 0 && x < map.length && y < map[0].length) {
-            return map[x][y];
-        }
-        return null;
+    public Vision(Player p) {
+        player = p;
     }
 
     // ==== Path Generation ====
 
-    // Gets all paths this Vision type can see — right now only checks 1 tile east
+    //returns the list of all paths the vision can see
     @Override
-    public Path[] getAllPaths() {
+    public List<Path> getAllPaths() {
         List<Path> paths = new ArrayList<>();
 
-        int x = playerLocationX + 1;
-        int y = playerLocationY;
-        Terrain t = checkSquare(x, y);
+        int x = player.getX() + 1;
+        int y = player.getY();
 
-        if (t != null) {
-            Path path = new Path(player);
-            path.setNextCoord(x, y);
+        Path path = new Path(player);
+        if(path.setNextCoord(x, y)) {
             paths.add(path);
         }
 
-        return paths.toArray(new Path[0]);
+        return paths;
     }
 
-    // Returns all lowest-cost paths from current vision
-    public Path[] easiestPath() {
-        Path[] allPaths = getAllPaths();
-        if (allPaths == null || allPaths.length == 0) {
-            return new Path[0];
+    // Returns all lowest movement cost paths
+    public List<Path> easiestPath() {
+        List<Path> paths = this.getAllPaths();
+        if (paths == null || paths.isEmpty()) {
+            return null;
         }
 
-        int minCost = allPaths[0].getCost();
-        for (int i = 1; i < allPaths.length; i++) {
-            int cost = allPaths[i].getCost();
+        int minCost = paths.get(0).getCost().getEnergyCost();
+        for (int i = 1; i < paths.size(); i++) {
+            int cost = paths.get(i).getCost().getEnergyCost();
             if (cost < minCost) {
                 minCost = cost;
             }
         }
 
         List<Path> minPaths = new ArrayList<>();
-        for (Path path : allPaths) {
-            if (path.getCost() == minCost) {
-                minPaths.add(path);
+        for (int i = 0; i < paths.size(); i++) {
+            if (paths.get(i).getCost().getEnergyCost() == minCost) {
+                minPaths.add(paths.get(i));
             }
         }
 
-        return minPaths.toArray(new Path[0]);
+        return minPaths;
     }
 
     // ==== Closest/Second Closest Resource Paths ====
@@ -117,45 +95,54 @@ public abstract class Vision {
     // ==== Path Comparison Methods ====
 
     // Finds the best matching path based on resource type and rank (1st, 2nd, etc.)
-    public Path compareClosestPath(Path[] paths, int rank, String type) {
+    public Path compareClosestPath(List<Path> paths, int rank, String type) {
         if (type.equalsIgnoreCase("easiest")) {
-            Path[] easiest = easiestPath();
-            if (easiest.length == 0) return null;
-            if (easiest.length == 1) return easiest[0];
+            List<Path> easiest = easiestPath();
+            if (easiest.isEmpty()) return null;
+            if (easiest.size()==1) return easiest.get(0);
 
-            // From all lowest-cost paths, return the one farthest east
-            Path maxEast = easiest[0];
-            for (int i = 1; i < easiest.length; i++) {
-                if (easiest[i].getStepX() > maxEast.getStepX()) {
-                    maxEast = easiest[i];
-                }
-            }
+            // sort by most east
+            easiest.sort(Comparator.comparingInt(p -> p.getStepX()));
 
-            return maxEast;
+            return easiest.get(easiest.size()-1);
         }
 
         // Filter paths by resource type
         List<Path> filtered = new ArrayList<>();
-        for (Path path : paths) {
-            Terrain dest = path.getDestinationTile();
+        for (int i = 0; i<paths.size();i++) {
+            Terrain dest = paths.get(i).getDestination();
             if (matchesType(dest, type)) {
-                filtered.add(path);
+                filtered.add(paths.get(i));
             }
         }
 
-        // Sort by cost and return the nth path
-        filtered.sort(Comparator.comparingInt(p -> p.getCost().getTotal()));
+        // Sort by movement cost
+        filtered.sort(Comparator.comparingInt(p -> p.getCost().getEnergyCost()));
+        int minCost = filtered.get(0).getCost().getEnergyCost();
+
+        //remove all paths with a greater movement cost
+        for (int i = 1; i < filtered.size(); i++) {
+            if (filtered.get(i).getCost().getEnergyCost() > minCost) {
+                filtered.remove(i);
+                i--;
+            }
+        }
+
+        // Sort by farthest east
+        filtered.sort(Comparator.comparingInt(p -> p.getStepX()));
+        filtered.reversed();
+
         return (rank <= filtered.size()) ? filtered.get(rank - 1) : null;
     }
 
     // Returns the second best path by cost, prefers farther east if tied
-    public Path compare2ndClosestPath(Path[] paths, int numPath, String type) {
+    public Path compare2ndClosestPath(List<Path> paths, int numPath, String type) {
         List<Path> filtered = new ArrayList<>();
 
-        for (Path path : paths) {
-            Terrain dest = path.getDestinationTile();
+        for (int i = 0; i<paths.size();i++) {
+            Terrain dest = paths.get(i).getDestination();
             if (matchesType(dest, type)) {
-                filtered.add(path);
+                filtered.add(paths.get(i));
             }
         }
 
@@ -163,20 +150,26 @@ public abstract class Vision {
         if (size == 0) return null;
         if (size == 1) return filtered.get(0);
 
-        filtered.sort(Comparator.comparingInt(p -> p.getCost().getTotal()));
+        // Sort by movement cost
+        filtered.sort(Comparator.comparingInt(p -> p.getCost().getEnergyCost()));
+        int min2Cost = filtered.get(1).getCost().getEnergyCost();
 
-        Path min1 = filtered.get(0);
-        Path min2 = filtered.get(1);
-
-        if (min1.getCost().getTotal() == min2.getCost().getTotal()) {
-            if (min2.getStepX() > min1.getStepX()) {
-                Path temp = min1;
-                min1 = min2;
-                min2 = temp;
+        //remove all paths with a greater movement cost
+        for (int i = 1; i < filtered.size(); i++) {
+            if (filtered.get(i).getCost().getEnergyCost() > min2Cost) {
+                filtered.remove(i);
+                i--;
             }
         }
 
-        return min2;
+        size = filtered.size();
+        if (size == 1) return filtered.get(0);
+
+        // Sort by farthest east
+        filtered.sort(Comparator.comparingInt(p -> p.getStepX()));
+        filtered.reversed();
+
+        return filtered.get(1);
     }
 
     // ==== Internal Helper ====
