@@ -41,4 +41,10 @@ public class Cost {
         return c;
     }
 
+    public void add(Cost c) {
+        foodCost += c.getFoodCost();
+        waterCost += c.getWaterCost();
+        energyCost += c.getEnergyCost();
+    }
+
 }
