@@ -1,6 +1,8 @@
 package player;
 import terrain.Path;
 import terrain.Cost;
+import terrain.Terrain;
+import java.util.List;
 
 public class Brain {
 
@@ -257,7 +259,7 @@ public class Brain {
                     continue; // Skip this path if it's completely unaffordable
                 }
 
-                Terrain dest = path.getDestinationTile();
+                Terrain dest = path.getDestination();
                 double score = 0;
 
                 // ==== Evaluate Food Bonus ====
@@ -291,7 +293,7 @@ public class Brain {
                 // ==== Keep highest scoring path ====
                 if (bestPath == null || score > bestScore) {
                     bestPath = path;
-                    bestScore = score;
+                    bestScore = score; 
                 }
             }
         }
