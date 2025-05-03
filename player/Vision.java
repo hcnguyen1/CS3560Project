@@ -18,19 +18,23 @@ public abstract class Vision {
     // ==== Path Generation ====
 
     //returns the list of all paths the vision can see
-    @Override
     public List<Path> getAllPaths() {
         List<Path> paths = new ArrayList<>();
 
         int x = player.getX() + 1;
         int y = player.getY();
 
-        Path path = new Path(player);
-        if(path.setNextCoord(x, y)) {
-            paths.add(path);
-        }
+        addPath(paths, x, y);
 
         return paths;
+    }
+
+    protected Path addPath(List<Path> p, int x, int y) {
+        Path path = new Path(player);
+        if(path.setNextCoord(x, y)) {
+            p.add(path);
+        }
+        return path;
     }
 
     // Returns all lowest movement cost paths
@@ -40,22 +44,20 @@ public abstract class Vision {
             return null;
         }
 
-        int minCost = paths.get(0).getCost().getEnergyCost();
-        for (int i = 1; i < paths.size(); i++) {
-            int cost = paths.get(i).getCost().getEnergyCost();
-            if (cost < minCost) {
-                minCost = cost;
+        List<Path> filtered = new ArrayList<>();
+        // Sort by movement cost
+        filtered.sort(Comparator.comparingInt(p -> p.getCost().getEnergyCost()));
+        int minCost = filtered.get(0).getCost().getEnergyCost();
+
+        //remove all paths with a greater movement cost
+        for (int i = 1; i < filtered.size(); i++) {
+            if (filtered.get(i).getCost().getEnergyCost() > minCost) {
+                filtered.remove(i);
+                i--;
             }
         }
 
-        List<Path> minPaths = new ArrayList<>();
-        for (int i = 0; i < paths.size(); i++) {
-            if (paths.get(i).getCost().getEnergyCost() == minCost) {
-                minPaths.add(paths.get(i));
-            }
-        }
-
-        return minPaths;
+        return filtered;
     }
 
     // ==== Closest/Second Closest Resource Paths ====
