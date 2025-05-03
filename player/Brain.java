@@ -1,5 +1,6 @@
 package player;
 import terrain.Path;
+import terrain.Terrain;
 import terrain.Cost;
 
 public class Brain {
@@ -242,10 +243,61 @@ public class Brain {
     }
 
     //compare all paths, including current one
-    private Path costBenefitAnalysis (Path p1, Path p2, Path traderPat) {
-        Path best = null;
+    private Path costBenefitAnalysis(Path p1, Path p2, Path p3) {
+        Path bestPath = currentPath; // Include current path as starting candidate
+        double bestScore = 0;
 
+        Path[] paths = {p1, p2, p3, currentPath};
 
+        for (Path path : paths) {
+            if (path != null) {
+                Cost cost = path.getCost();
 
+                // ==== Check affordability ====
+                if (!player.canAfford(cost)) {
+                    continue; // Skip this path if it's completely unaffordable
+                }
+
+                Terrain dest = path.getDestinationTile();
+                double score = 0;
+
+                // ==== Evaluate Food Bonus ====
+                if (dest.hasFoodBonus()) {
+                    score += (player.getFoodAmount() < foodThreshold) ? 15 : 5;
+                }
+
+                // ==== Evaluate Water Bonus ====
+                if (dest.hasWaterBonus()) {
+                    score += (player.getWaterAmount() < waterThreshold) ? 15 : 5;
+                }
+
+                // ==== Evaluate Gold Bonus ====
+                if (dest.hasGoldBonus()) {
+                    score += (player.getGoldAmount() < goldThreshold) ? 15 : 5;
+                }
+
+                // ==== Evaluate Trader Bonus ====
+                if (dest.hasTrader()) {
+                    boolean needsToTrade = player.getGoldAmount() >= goldThreshold &&
+                        (player.getFoodAmount() < foodThreshold || player.getWaterAmount() < waterThreshold);
+                    if (needsToTrade) {
+                        score += 12;
+                    }
+                }
+
+                // ==== Subtract movement cost penalty ====
+                double penalty = cost.getEnergyCost() + cost.getFoodCost() + cost.getWaterCost();
+                score -= penalty;
+
+                // ==== Keep highest scoring path ====
+                if (bestPath == null || score > bestScore) {
+                    bestPath = path;
+                    bestScore = score;
+                }
+            }
+        }
+
+        return bestPath;
     }
+
 }
