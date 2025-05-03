@@ -62,7 +62,7 @@ public class Map {
     if (player == null) {
       player = new Player(startingX, startingY); // Create a new player
     } else {
-      player.setPosition(startingX, startingY); // Update the player's position
+      player.setNextCoord(startingX, startingY); // Update the player's position
     }
 
     System.out.println(player); // Print the player's position for verification
