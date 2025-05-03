@@ -65,11 +65,21 @@ public class Brain {
 
     }
 
-    //use half the costs of the terrain where the player is staying
+    //use half the costs of the terrain where the player is staying and gain energy
+    //if the player is staying, it has either run out of energy or out of resources and is stuck
     private void stay() {
-        Cost c = player.getCurrentTerrain().getCost();
-        Cost.half(c);
+        Cost c = player.getCurrentTerrain().getCost().half();
+
+        //gain 1 energy for staying
+        c.setEnergyCost(-1);
+        
         player.useCost(c);
+
+          //if the player is stuck, all resources will eventually be used
+          //once any resources are all used, the player dies
+        if (player.getFoodAmount()<0 || player.getWaterAmount() < 0) {
+            player.death();
+        }
     }
 
     private void energyConversion() {
