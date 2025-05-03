@@ -16,20 +16,22 @@ public class Player {
     private int energy = maxEnergy;
 
     //player location
-    private int locationX = 0;
-    private int locationY = 3;//Map.getSize()/2;
+    private int locationX;
+    private int locationY;
 
     //constructor; randomizes the brain and vision type
-    public Player() {
+    public Player(int x, int y) {
+        locationX = x;
+        locationY = y;
         //Randomize which vision to get
         Random rng = new Random();
         int visionType = rng.nextInt(4) + 1;
         
         vision = switch (visionType) {
-            case 2 -> new CautiousVision();
-            case 3 -> new KeenEyedVision();
-            case 4 -> new FarSight();
-            default -> new FocusedVision();
+            case 2 -> new CautiousVision(this);
+            case 3 -> new KeenEyedVision(this);
+            case 4 -> new FarSight(this);
+            default -> new FocusedVision(this);
         }; //case 1
 
         brain.setVision(vision);
