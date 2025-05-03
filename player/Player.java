@@ -141,4 +141,8 @@ public class Player {
         return energy;
     }
 
+    public void death() {
+        //player death sequence
+    }
+
 }
