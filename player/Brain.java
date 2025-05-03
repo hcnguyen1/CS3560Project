@@ -4,10 +4,10 @@ import terrain.Cost;
 
 public class Brain {
 
-    int waterThreshold = 5;
-    int foodThreshold = 5;
-    int goldThreshold = 1;
-    int energyThreshold = 5;
+    int waterThreshold;
+    int foodThreshold;
+    int goldThreshold;
+    int energyThreshold;
     Path currentPath;
     double n = 1.5; //multiplier 
     Player player;
@@ -19,6 +19,23 @@ public class Brain {
 
     public void setVision(Vision v) {
         vision = v;
+    }
+
+    //These values can determine brain personality
+    public void setWaterThreshold(int w) {
+        waterThreshold = w;
+    }
+
+    public void setFoodThreshold(int f) {
+        foodThreshold = f;
+    }
+
+    public void setGoldThreshold(int g) {
+        goldThreshold = g;
+    }
+
+    public void setEnergyThreshold(int e) {
+        energyThreshold = e;
     }
 
     public void makeMove() {
@@ -61,13 +78,28 @@ public class Brain {
 
     private void scavengerStrategy() {
         // Get the closest and second closest resource paths (food or water)
-        Path closest = vision.getClosestResource();
-        Path second = vision.getSecondClosestResource();
+        Path closest;
+        Path second;
+        int foodAmount = player.getFoodAmount();
+        int waterAmount = player.getWaterAmount();
+
+        //if lower on food, look for food; if lower on water, look for water
+        //if low on both, look for both
+        if (foodAmount < waterAmount) {
+            closest = vision.closestFood();
+            second = vision.secondClosestFood();
+        } else if (waterAmount > foodAmount) {
+            closest = vision.closestWater();
+            second = vision.secondClosestWater();
+        } else {
+            closest = vision.closestFood();
+            second = vision.closestWater();
+        }
         Path trader = null;
 
-        // If the player has enough gold, include a trader path in the options
-        if (player.getGoldAmount() > goldThreshold) {
-            trader = vision.getClosestTrader();
+        // If the player has any gold, find a trader
+        if (player.getGoldAmount() > 0) {
+            trader = vision.closestTrader();
         }
 
         // Evaluate all options and choose the best path based on resource needs and cost
@@ -79,16 +111,35 @@ public class Brain {
             currentPath.takePath();
 
             // If the new tile has a resource bonus, collect it
-            if (player.getCurrentTerrain().hasFoodBonus() || player.getCurrentTerrain().hasGoldBonus() || player.getCurrentTerrain().hasWaterBonus()) {
-                player.useBonus();
-            }
-
-            // Apply the movement cost of the tile
-            player.useCost(bestPath.getCost());
+            player.useBonus();
         }
         else {
-            // If no valid paths were found, stay in place and recover half the cost
-            this.stay();
+            //check second option; if food lower than water, check water
+            //if water lower than food, check food
+            //if low on both, check second closest path for both
+            if (foodAmount < waterAmount) {
+                closest = vision.closestWater();
+                second = vision.secondClosestWater();
+            } else if (waterAmount > foodAmount) {
+                closest = vision.closestFood();
+                second = vision.secondClosestFood();
+            } else {
+                closest = vision.secondClosestFood();
+                second = vision.secondClosestWater();
+            }
+
+            //choose the best path
+            bestPath = costBenefitAnalysis(closest, second, trader);
+
+            if (bestPath != null) {
+                currentPath = bestPath;
+                currentPath.takePath();
+
+                player.useBonus();
+            } else {
+                // If no valid paths were found, stay in place
+                this.stay();
+            }
         }
 
     }
@@ -99,18 +150,18 @@ public class Brain {
     
         // If food is below the threshold, look for the two closest food sources
         if (player.getFoodAmount() < foodThreshold) {
-            first = vision.getClosestFood();
-            second = vision.getSecondClosestFood();
+            first = vision.closestFood();
+            second = vision.secondClosestFood();
         }
     
         // If water is below the threshold, look for the two closest water sources
         if (player.getWaterAmount() < waterThreshold) {
-            first = vision.getClosestWater();
-            second = vision.getSecondClosestWater();
+            first = vision.closestWater();
+            second = vision.secondClosestWater();
         }
     
         // Always consider a path to the closest trader
-        Path trader = vision.getClosestTrader();
+        Path trader = vision.closestTrader();
     
         // Choose the best path out of the two resources and the trader
         Path bestPath = costBenefitAnalysis(first, second, trader);
@@ -120,13 +171,9 @@ public class Brain {
             currentPath = bestPath;
             currentPath.takePath();
     
-            // Use bonus on the tile if one exists
-            if (player.getCurrentTerrain().hasBonus()) {
-                player.useBonus();
-            }
+            // Use bonus on the tile
+            player.useBonus();
     
-            // Apply movement cost
-            player.useCost(bestPath.getCost());
         } else {
             // If no path is found, stay on current tile
             this.stay(); // fallback
@@ -140,14 +187,14 @@ public class Brain {
 
         // If food is below the threshold, get the two closest food paths
         if (player.getFoodAmount() < foodThreshold) {
-            p1 = vision.getClosestFood();
-            p2 = vision.getSecondClosestFood();
+            p1 = vision.closestFood();
+            p2 = vision.secondClosestFood();
         }
     
         // If water is below the threshold, get the two closest water paths
         if (player.getWaterAmount() < waterThreshold) {
-            p1 = vision.getClosestWater();
-            p2 = vision.getSecondClosestWater();
+            p1 = vision.closestWater();
+            p2 = vision.secondClosestWater();
         }
     
         // Choose the best path between the two resource paths (no trader considered here)
@@ -159,12 +206,8 @@ public class Brain {
             currentPath.takePath();
     
             // Use any bonus on the new tile
-            if (player.getCurrentTerrain().hasBonus()) {
-                player.useBonus();
-            }
+            player.useBonus();
     
-            // Apply cost for moving to the new tile
-            player.useCost(bestPath.getCost());
         } else {
             // Stay in place if no useful path is found
             this.stay(); // fallback if no valid path
@@ -188,6 +231,7 @@ public class Brain {
         player.useBonus();
     }
 
+    //compare all paths, including current one
     private Path costBenefitAnalysis (Path p1, Path p2, Path traderPat) {
         Path best = null;
 
