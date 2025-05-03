@@ -40,7 +40,7 @@ public class Path {
         return costs;
     }
 
-    public void takeStep() {
+    public void takePath() {
         //only moves the player if there is a next step to go to
         if (numSteps <= nextStep) {
             //move the player to the next block on the path
