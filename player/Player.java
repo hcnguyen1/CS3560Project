@@ -147,4 +147,10 @@ public class Player {
         //player death sequence
     }
 
+    public boolean canAfford(Cost cost) {
+        return this.getFoodAmount() >= cost.getFoodCost() &&
+               this.getWaterAmount() >= cost.getWaterCost() &&
+               this.getEnergyAmount() >= cost.getEnergyCost();
+    }    
+
 }
