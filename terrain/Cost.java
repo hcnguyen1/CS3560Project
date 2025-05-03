@@ -23,6 +23,10 @@ public class Cost {
         return energyCost;
     }
 
+    public void setEnergyCost(int e) {
+        energyCost = e;
+    }
+
     public int getGoldCost() {
         return energyCost;
     }
