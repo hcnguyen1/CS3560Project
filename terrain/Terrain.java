@@ -2,9 +2,7 @@ package terrain;
 
 public class Terrain {
 
-  private int movementCost;
-  private int waterCost;
-  private int foodCost;
+  private Cost costs;
   private float spawnRate;
 
   private boolean hasWaterBonus;
@@ -19,26 +17,18 @@ public class Terrain {
     int foodCost,
     float spawnRate
   ) {
-    this.movementCost = movementCost;
-    this.waterCost = waterCost;
-    this.foodCost = foodCost;
+    costs = new Cost(movementCost, waterCost, foodCost);
     this.spawnRate = spawnRate;
   }
 
-  // get Cost methods
-  public int getMovementCost() {
-    return movementCost;
-  }
-
-  public int getWaterCost() {
-    return waterCost;
-  }
-
-  public int getFoodCost() {
-    return foodCost;
+  // get Costs
+  public Cost getCost() {
+    return costs.copy();
   }
 
   // Has bonuses methods
+  //if we change how bonuses store data to be more similar to Costs, we can do return bonus.getWaterCost == 0; etc
+  //and we don't need the variables either 
   public boolean hasWaterBonus() {
     return hasWaterBonus;
   }
