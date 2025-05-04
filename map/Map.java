@@ -7,8 +7,7 @@ import terrain.Mountain;
 import terrain.Plains;
 import terrain.Swamp;
 import terrain.Terrain;
-import difficulty.Difficulty; 
-import difficulty.DifficultyManager; 
+
 
 
 public class Map {
@@ -48,8 +47,8 @@ public class Map {
     return null;
   }
 
-  public void generateTerrain() {
-    Difficulty difficulty = DifficultyManager.getDifficulty();
+  public void generateTerrain(Difficulty difficulty) {
+    //Difficulty difficulty = DifficultyManager.getDifficulty();
 
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {

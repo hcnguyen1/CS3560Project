@@ -1,4 +1,4 @@
-
+package difficulty;
 
 public interface Difficulty {
   

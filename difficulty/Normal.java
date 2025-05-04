@@ -1,5 +1,4 @@
 
-
 public class Normal implements Difficulty {
 
   @Override

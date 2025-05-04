@@ -2,6 +2,7 @@ import map.Map;
 import player.Player;
 import terrain.Terrain;
 
+
 public class App {
     public static void main(String[] args) throws Exception {
         // Initialize the game
@@ -12,10 +13,12 @@ public class App {
         int width = (int) config[0]; // index 0, the width
         int height = (int) config[1]; // index 1, the height
 
-        DifficultyManager.setDifficulty((Difficulty) config[2]); // sets difficulty globally.
+        // Set the difficulty globally
+        Difficulty difficulty = (Difficulty) config[2];
+        DifficultyManager.setDifficulty(difficulty);
 
         // Generate the map using the width and height. The difficulty is already set globally.
-        Map.getInstance(width, height).generateTerrain();
+        Map.getInstance(width, height).generateTerrain(difficulty);
 
         // game will spawn player
         Map.getInstance().spawnPlayer();
