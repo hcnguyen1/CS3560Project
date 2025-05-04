@@ -1,3 +1,5 @@
+package difficulty;
+
 public class Normal implements Difficulty {
 
 

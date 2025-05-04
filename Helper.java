@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import difficulty.Easy;
+import difficulty.Normal;
+import difficulty.Hard;
+import difficulty.Difficulty;
 
 public class Helper {
     // for clean and abstracted coding i moved the configurations in this helper.java

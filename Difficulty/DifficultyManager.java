@@ -1,3 +1,5 @@
+package difficulty;
+
 public class DifficultyManager {
 
     private static Difficulty currentDifficulty = null;

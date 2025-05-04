@@ -1,6 +1,6 @@
 package terrain;
-import java.util.Map;
 import player.Player;
+import terrain.Terrain;
 
 public class Path {
     private Cost costs;
@@ -15,7 +15,7 @@ public class Path {
     }
 
     public boolean setNextCoord(int Xcoord, int Ycoord) {
-        Terrain t = Map.getTerrain(Xcoord, Ycoord);
+        Terrain t = Map.getInstance().getTerrain(Xcoord, Ycoord);
         if (t != null) {
             movesX[nextStep] = Xcoord;
             movesY[nextStep] = Ycoord;
@@ -53,6 +53,6 @@ public class Path {
     }
 
     public Terrain getDestination() {
-        return Map.getTerrain(movesX[nextStep], movesY[nextStep]);
+        return Map.getInstance().getTerrain(movesX[nextStep], movesY[nextStep]);
     }
 }

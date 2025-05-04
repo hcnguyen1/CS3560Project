@@ -1,3 +1,5 @@
+package difficulty;
+
 public interface Difficulty {
     double getPlainsSpawnRate();
 

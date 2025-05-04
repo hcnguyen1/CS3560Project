@@ -1,6 +1,8 @@
 import player.Player;
 import terrain.Plains;
 import terrain.Terrain;
+import difficulty.DifficultyManager;
+import difficulty.Difficulty;
 
 public class Map {
 
@@ -10,7 +12,6 @@ public class Map {
   private Terrain[][] terrainGrid;
   private Player player; // Add a Player reference
 
-  // private map for 1 instance
   Map(int width, int height) {
     this.width = width;
     this.height = height;
