@@ -20,8 +20,7 @@ public class Terrain {
   public Cost getCost() {
     return costs.copy();
   }
-
-  // get Spawn Rate methods
+  /* Might not need this since, we already have Easy, Normal, Hard classes spawn rate methods
   public float getSpawnRate() {
     return spawnRate;
   }
@@ -45,4 +44,5 @@ public class Terrain {
   public float getTraderSpawnRate() {
     return spawnRate;
   }
+  */
 }

@@ -1,8 +1,12 @@
-import player.Player;
-import terrain.Plains;
-import terrain.Terrain;
-import difficulty.DifficultyManager;
 import difficulty.Difficulty;
+import difficulty.DifficultyManager;
+import player.Player;
+import terrain.Desert;
+import terrain.Forest;
+import terrain.Mountain;
+import terrain.Plains;
+import terrain.Swamp;
+import terrain.Terrain;
 
 public class Map {
 
@@ -16,62 +20,62 @@ public class Map {
     this.width = width;
     this.height = height;
     this.terrainGrid = new Terrain[width][height];
-}
+  }
 
-// static map
-public static Map getInstance(int width, int height) {
+  // static map
+  public static Map getInstance(int width, int height) {
     if (instance == null) {
-        instance = new Map(width, height);
+      instance = new Map(width, height);
     }
     return instance;
-}
+  }
 
-// no parameter/argument Map as overload/backup
-public static Map getInstance() {
-  if (instance == null) {
+  // no parameter/argument Map as overload/backup
+  public static Map getInstance() {
+    if (instance == null) {
       throw new IllegalStateException("Map is not initialized...");
+    }
+    return instance;
   }
-  return instance;
-}
 
-public Terrain getTerrain(int x, int y) {
-  if (x >= 0 && x < width && y >= 0 && y < height) {
-    return terrainGrid[x][y];
+  public Terrain getTerrain(int x, int y) {
+    if (x >= 0 && x < width && y >= 0 && y < height) {
+      return terrainGrid[x][y];
+    }
+    return null;
   }
-  return null;
-}
 
   public void generateTerrain() {
     Difficulty difficulty = DifficultyManager.getDifficulty();
 
     for (int x = 0; x < width; x++) {
-        for (int y = 0; y < height; y++) {
-            double roll = Math.random(); // Random value between 0 and 1
-            Terrain terrain;
+      for (int y = 0; y < height; y++) {
+        double roll = Math.random(); // Random value between 0 and 1
+        Terrain terrain;
 
-            double plainsRate = difficulty.getPlainsSpawnRate();
-            double forestRate = plainsRate + difficulty.getForestSpawnRate();
-            double mountainRate = forestRate + difficulty.getMountainSpawnRate();
-            double swampRate = mountainRate + difficulty.getSwampSpawnRate();
-            double desertRate = swampRate + difficulty.getDesertSpawnRate(); 
+        double plainsRate = difficulty.getPlainsSpawnRate();
+        double forestRate = plainsRate + difficulty.getForestSpawnRate();
+        double mountainRate = forestRate + difficulty.getMountainSpawnRate();
+        double swampRate = mountainRate + difficulty.getSwampSpawnRate();
+        double desertRate = swampRate + difficulty.getDesertSpawnRate();
 
-            // Determine terrain based on roll
-            if (roll < plainsRate) {
-                terrain = new Plains();
-            } else if (roll < forestRate) {
-                terrain = new Forest();
-            } else if (roll < mountainRate) {
-                terrain = new Mountain();
-            } else if (roll < swampRate) {
-                terrain = new Swamp();
-            } else {
-                terrain = new Desert();
-            }
-
-            terrainGrid[x][y] = terrain;
+        // Determine terrain based on roll
+        if (roll < plainsRate) {
+          terrain = new Plains();
+        } else if (roll < forestRate) {
+          terrain = new Forest();
+        } else if (roll < mountainRate) {
+          terrain = new Mountain();
+        } else if (roll < swampRate) {
+          terrain = new Swamp();
+        } else {
+          terrain = new Desert();
         }
+
+        terrainGrid[x][y] = terrain;
+      }
     }
-}
+  }
 
   public void spawnPlayer() {
     int startingX = height / 2; // Calculate the middle row
