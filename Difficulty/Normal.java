@@ -3,7 +3,7 @@ public class Normal implements Difficulty {
 
     @Override
     public double getDesertSpawnRate() {
-        return 0.15; // 15% Swamp
+        return 0.15; // 15% desert
     }
 
     @Override
@@ -28,21 +28,21 @@ public class Normal implements Difficulty {
 
     @Override
     public int getMaxFood() {
-        return ;
+        return 75;
     }
 
     @Override
     public int getMaxWater() {
-        return ;
+        return 75;
     }
 
     @Override
     public int getMaxGold() {
-        return ;
+        return 75;
     }
 
     @Override
     public int getMaxEnergy() {
-        return ;
+        return 75;
     }
 }
