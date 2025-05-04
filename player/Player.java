@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 import terrain.Cost;
 import terrain.Terrain;
+import difficulty.*;
 
 //import default.Difficulty; the difficulty interface will have the values for each difficulty
 
@@ -15,14 +16,14 @@ public class Player {
   private Brain brain = new Brain(this);
   private int gold = 0;
 
-  private int maxWater = 20;
-  private int maxFood = 20;
-  private int maxEnergy = 20;
-  private int maxGold = 20;
+  private int maxWater;
+  private int maxFood;
+  private int maxEnergy;
+  private int maxGold;
 
-  private int water = maxWater;
-  private int food = maxFood;
-  private int energy = maxEnergy;
+  private int water;
+  private int food;
+  private int energy;
 
   //player location
   private int locationX;
@@ -45,6 +46,18 @@ public class Player {
       }; //case 1
 
     brain.setVision(vision);
+
+    //Max values based on dificulty
+    Difficulty difficulty = DifficultyManager.getDifficulty();
+      maxFood = difficulty.getMaxFood();
+      maxWater = difficulty.getMaxWater();
+      maxGold = difficulty.getMaxGold();
+      maxEnergy = difficulty.getMaxEnergy();
+
+    //Initialize resource amounts
+    food = maxFood;
+    water = maxWater;
+    energy = maxEnergy;
 
     //randomize brain personality type
     int brainType = rng.nextInt(4) + 1;
@@ -79,6 +92,7 @@ public class Player {
         brain.setGoldThreshold(maxGold / 3);
       }
     }
+
   }
 
   public void makeMove() {
