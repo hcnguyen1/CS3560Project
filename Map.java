@@ -1,4 +1,5 @@
 import player.Player;
+import terrain.Plains;
 import terrain.Terrain;
 
 public class Map {
@@ -10,7 +11,7 @@ public class Map {
   private Player player; // Add a Player reference
 
   // private map for 1 instance
-  private Map(int width, int height) {
+  Map(int width, int height) {
     this.width = width;
     this.height = height;
     this.terrainGrid = new Terrain[width][height];
@@ -46,20 +47,20 @@ public Terrain getTerrain(int x, int y) {
         Terrain terrain;
        
         if (roll < difficulty.getPlainsSpawnRate()) {
-          terrain = new Terrain(int movementCost, int waterCost, int foodCost, float spawnRate);
+          terrain = new Plains(1, 1, 1, 1);
         } else if (
           roll <
           difficulty.getPlainsSpawnRate() +
           difficulty.getForestSpawnRate()
         ) {
-          terrain = new Terrain(int movementCost, int waterCost, int foodCost, float spawnRate); 
+          terrain = new Forest(1, 1, 1, 1); 
         } else if (
           roll <
           difficulty.getPlainsSpawnRate() +
           difficulty.getForestSpawnRate() +
           difficulty.getMountainSpawnRate()
         ) {
-          terrain = new Terrain(int movementCost, int waterCost, int foodCost, float spawnRate);; 
+          terrain = new Mountain(1, 1, 1, 1);; 
         } else if (
           roll <
           difficulty.getPlainsSpawnRate() +
@@ -67,9 +68,9 @@ public Terrain getTerrain(int x, int y) {
           difficulty.getMountainSpawnRate() +
           difficulty.getSwampSpawnRate()
         ) {
-          terrain = new Terrain(int movementCost, int waterCost, int foodCost, float spawnRate);; 
+          terrain = new Swamp(1, 1, 1, 1);; 
         } else {
-          terrain = new Terrain(int movementCost, int waterCost, int foodCost, float spawnRate);;
+          terrain = new Desert(1, 1, 1, 1);;
         }
 
       
