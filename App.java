@@ -1,3 +1,6 @@
+import player.Player;
+import terrain.Terrain;
+
 public class App {
     public static void main(String[] args) throws Exception {
         // Initialize the game
@@ -10,9 +13,16 @@ public class App {
         Difficulty difficulty = (Difficulty) config[2]; // index 2, the difficulty level.
 
         // Generate the map
-        Map map = new Map(width, height); // creates a new map of user inputted width and height.
-        map.generateTerrain(difficulty);
+        Map.getInstance(width, height).generateTerrain(difficulty);
 
+        // game will spawn player
+        Map.getInstance().spawnPlayer();
 
+        // Get the player's current location
+        Player p = Map.getInstance().getPlayer();
+
+        // get current terrain
+        Terrain currentTerrain = Map.getInstance().getTerrain(p.getX(), p.getY());
+        System.out.println("Player is on terrain: " + currentTerrain);
     }
 }

@@ -47,20 +47,20 @@ public Terrain getTerrain(int x, int y) {
         Terrain terrain;
        
         if (roll < difficulty.getPlainsSpawnRate()) {
-          terrain = new Plains(1, 1, 1, 1);
+          terrain = new Plains();
         } else if (
           roll <
           difficulty.getPlainsSpawnRate() +
           difficulty.getForestSpawnRate()
         ) {
-          terrain = new Forest(1, 1, 1, 1); 
+          terrain = new Forest(); 
         } else if (
           roll <
           difficulty.getPlainsSpawnRate() +
           difficulty.getForestSpawnRate() +
           difficulty.getMountainSpawnRate()
         ) {
-          terrain = new Mountain(1, 1, 1, 1);; 
+          terrain = new Mountain();; 
         } else if (
           roll <
           difficulty.getPlainsSpawnRate() +
@@ -68,9 +68,9 @@ public Terrain getTerrain(int x, int y) {
           difficulty.getMountainSpawnRate() +
           difficulty.getSwampSpawnRate()
         ) {
-          terrain = new Swamp(1, 1, 1, 1);; 
+          terrain = new Swamp();; 
         } else {
-          terrain = new Desert(1, 1, 1, 1);;
+          terrain = new Desert();;
         }
 
       
