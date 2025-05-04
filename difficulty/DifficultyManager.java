@@ -1,3 +1,4 @@
+package difficulty;
 
 public class DifficultyManager {
 
