@@ -1,9 +1,5 @@
 package terrain;
 
-import difficulty.Easy;
-import difficulty.Hard;
-import difficulty.Normal;
-
 public class Plains extends Terrain {
 
   private static final int MOVEMENT_COST = 1;

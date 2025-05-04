@@ -1,4 +1,7 @@
 package terrain;
+
+import java.util.Map;
+
 import player.Player;
 import terrain.Terrain;
 

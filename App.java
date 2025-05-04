@@ -1,7 +1,6 @@
+import map.Map;
 import player.Player;
 import terrain.Terrain;
-import difficulty.DifficultyManager;
-import difficulty.Difficulty; 
 
 public class App {
     public static void main(String[] args) throws Exception {

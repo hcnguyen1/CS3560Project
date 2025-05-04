@@ -1,4 +1,3 @@
-package difficulty;
 
 public class Easy implements Difficulty {
 

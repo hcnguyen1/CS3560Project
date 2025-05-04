@@ -1,5 +1,5 @@
-import difficulty.Difficulty;
-import difficulty.DifficultyManager;
+package map;
+
 import player.Player;
 import terrain.Desert;
 import terrain.Forest;
@@ -7,6 +7,9 @@ import terrain.Mountain;
 import terrain.Plains;
 import terrain.Swamp;
 import terrain.Terrain;
+import difficulty.Difficulty; 
+import difficulty.DifficultyManager; 
+
 
 public class Map {
 
