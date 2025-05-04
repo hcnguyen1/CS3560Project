@@ -19,7 +19,7 @@ public class ResourceBonus implements Bonus {
         this.collectedThisTurn = false;
     }
 
-    // allows the Player to check potential collection
+    // allows Player to check potential collection
     public int getGold() {
         return type == ResourceType.GOLD && !collectedThisTurn ? amount : 0;
     }
