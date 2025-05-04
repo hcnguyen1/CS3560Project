@@ -1,7 +1,7 @@
 package player;
 
 import bonus.Bonus;
-import java.util.Map;
+import map.Map;
 import java.util.Random;
 import terrain.Cost;
 import terrain.Terrain;
@@ -104,7 +104,7 @@ public class Player {
   }
 
   public Terrain getCurrentTerrain() {
-    Map.getTerrain(locationX, locationY);
+    return Map.getInstance().getTerrain(locationX, locationY);
   }
 
   public int getX() {
