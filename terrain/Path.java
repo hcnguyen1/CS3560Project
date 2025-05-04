@@ -35,14 +35,6 @@ public class Path {
         return movesX[nextStep];
     }
 
-    public Cost getNextCost() {
-        if(numSteps+1<= nextStep) {
-            return Map.getTerrain(movesX[numSteps+1],movesY[numSteps+1]).getCost();
-        }
-
-        return null;
-    }
-
     public Cost getCost() {
         return costs;
     }
