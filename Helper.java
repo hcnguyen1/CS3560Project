@@ -33,11 +33,10 @@ public class Helper {
                 System.out.println("You selected Hard difficulty.");
                 break;
             default:
-                System.out.println("Invalid input. Defaulting to Easy difficulty.");
-                difficulty = new Easy();
-
-                sc.close();
+                System.out.println("Invalid input. Please try again.");
         }
+
+        sc.close();
 
         // Return both the map dimensions and the difficulty
         return new Object[] { width, height, difficulty };
