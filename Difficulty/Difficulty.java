@@ -1,20 +1,19 @@
 public interface Difficulty {
-    double getPlainsSpawnRate();
+  double getPlainsSpawnRate();
 
-    double getForestSpawnRate();
+  double getForestSpawnRate();
 
-    double getMountainSpawnRate();
+  double getMountainSpawnRate();
 
-    double getSwampSpawnRate();
+  double getSwampSpawnRate();
 
-    double getDesertSpawnRate();
+  double getDesertSpawnRate();
 
-int getMaxFood();
-    
-int getMaxWater();
-    
-int getMaxGold();
-    
-int getMaxEnergy();
+  int getMaxFood();
 
+  int getMaxWater();
+
+  int getMaxGold();
+
+  int getMaxEnergy();
 }
