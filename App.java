@@ -10,10 +10,11 @@ public class App {
         Object[] config = Helper.getMapConfiguration(); // makes a list of what config values we want
         int width = (int) config[0]; // index 0, the width
         int height = (int) config[1]; // index 1, the height
-        Difficulty difficulty = (Difficulty) config[2]; // index 2, the difficulty level.
 
-        // Generate the map
-        Map.getInstance(width, height).generateTerrain(difficulty);
+        DifficultyManager.setDifficulty((Difficulty) config[2]); // sets difficulty globally.
+
+        // Generate the map using all values
+        Map.getInstance(width, height).generateTerrain(DifficultyManager.getDifficulty());
 
         // game will spawn player
         Map.getInstance().spawnPlayer();
