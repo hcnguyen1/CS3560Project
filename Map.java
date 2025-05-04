@@ -1,3 +1,5 @@
+import difficulty.Difficulty;
+import difficulty.DifficultyManager;
 import player.Player;
 import terrain.Desert;
 import terrain.Forest;
