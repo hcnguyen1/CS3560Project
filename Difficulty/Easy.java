@@ -26,5 +26,24 @@ public class Easy implements Difficulty {
         return 0.05; // 5% Swamp
     }
 
+    @Override
+    public int getMaxFood() {
+        return ;
+    }
+
+    @Override
+    public int getMaxWater() {
+        return ;
+    }
+
+    @Override
+    public int getMaxGold() {
+        return ;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return ;
+    }
 
 }

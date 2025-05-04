@@ -25,4 +25,24 @@ public class Normal implements Difficulty {
     public double getSwampSpawnRate() {
         return 0.15; // 15% Swamp
     }
+
+    @Override
+    public int getMaxFood() {
+        return ;
+    }
+
+    @Override
+    public int getMaxWater() {
+        return ;
+    }
+
+    @Override
+    public int getMaxGold() {
+        return ;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return ;
+    }
 }

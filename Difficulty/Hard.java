@@ -26,4 +26,24 @@ public class Hard implements Difficulty {
     public double getSwampSpawnRate() {
         return 0.1; // 20% Swamp
     }
+
+    @Override
+    public int getMaxFood() {
+        return ;
+    }
+
+    @Override
+    public int getMaxWater() {
+        return ;
+    }
+
+    @Override
+    public int getMaxGold() {
+        return ;
+    }
+
+    @Override
+    public int getMaxEnergy() {
+        return ;
+    }
 }

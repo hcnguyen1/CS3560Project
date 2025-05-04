@@ -5,4 +5,8 @@ public interface Difficulty {
     double getSwampSpawnRate();
     double getDesertSpawnRate();
 
+    int getMaxFood();
+    int getMaxWater();
+    int getMaxGold();
+    int getMaxEnergy();
 }
