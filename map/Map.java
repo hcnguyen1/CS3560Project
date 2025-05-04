@@ -7,7 +7,7 @@ import terrain.Mountain;
 import terrain.Plains;
 import terrain.Swamp;
 import terrain.Terrain;
-
+import difficulty.Difficulty;
 
 
 public class Map {
@@ -59,7 +59,7 @@ public class Map {
         double forestRate = plainsRate + difficulty.getForestSpawnRate();
         double mountainRate = forestRate + difficulty.getMountainSpawnRate();
         double swampRate = mountainRate + difficulty.getSwampSpawnRate();
-        double desertRate = swampRate + difficulty.getDesertSpawnRate();
+        //double desertRate = swampRate + difficulty.getDesertSpawnRate();
 
         // Determine terrain based on roll
         if (roll < plainsRate) {

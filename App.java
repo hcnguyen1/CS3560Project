@@ -1,6 +1,8 @@
 import map.Map;
 import player.Player;
 import terrain.Terrain;
+import difficulty.Difficulty;
+import difficulty.DifficultyManager;
 
 
 public class App {
@@ -12,9 +14,10 @@ public class App {
         Object[] config = Helper.getMapConfiguration(); // makes a list of what config values we want
         int width = (int) config[0]; // index 0, the width
         int height = (int) config[1]; // index 1, the height
+        Difficulty difficulty = (Difficulty) config[2]; // difficulty option
+
 
         // Set the difficulty globally
-        Difficulty difficulty = (Difficulty) config[2];
         DifficultyManager.setDifficulty(difficulty);
 
         // Generate the map using the width and height. The difficulty is already set globally.
