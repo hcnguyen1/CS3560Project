@@ -28,29 +28,26 @@ public class App {
         // Get the player instance
         Player player = Map.getInstance().getPlayer();
 
-        // Game loop
+        
         while (true) {
             // Display the player's current state
-            System.out.println("Player Position: (" + player.getX() + ", " + player.getY() + ")");
-            System.out.println("Food: " + player.getFoodAmount() + ", Water: " + player.getWaterAmount() +
-                               ", Energy: " + player.getEnergyAmount() + ", Gold: " + player.getGoldAmount());
-            Terrain currentTerrain = Map.getInstance().getTerrain(player.getX(), player.getY());
-            System.out.println("Current Terrain: " + currentTerrain);
-
+            player.toString(); // calls from player.java last method
+            Thread.sleep(1000);
             // Check if the player has reached the rightmost column
             if (player.getX() == width - 1) {
-                System.out.println("Congratulations! You reached the goal!");
+                System.out.println("Congratulations! Ypu've won!");
                 break;
             }
 
-            // Check if player is dead
-            if (player.getFoodAmount() <= 0 || player.getWaterAmount() <= 0 || player.getEnergyAmount() <= 0) {
+
+            // check if player is dead, if they aren't then they are able to move. 
+            if (player.isDead()) { // still undefined 
                 System.out.println("Game Over! The player has died.");
-                break;
+                System.exit(1); // program closes
+            } else {
+                // Make the player move if they are not dead
+                player.makeMove();
             }
-
-            // Make the player move
-            player.makeMove();
         }
     }
 }

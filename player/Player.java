@@ -181,4 +181,10 @@ public class Player {
       this.getEnergyAmount() >= cost.getEnergyCost()
     );
   }
+
+  @Override
+  public String toString() {
+    return "Player Position: (" + locationX + ", " + locationY + "), " +
+           "Food: " + food + ", Water: " + water + ", Energy: " + energy + ", Gold: " + gold;
+  }
 }
