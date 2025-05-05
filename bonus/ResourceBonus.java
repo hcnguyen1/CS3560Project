@@ -1,6 +1,6 @@
 package bonus;
 
-// import player.Player;
+import trader.ResourceBundle;
 
 public class ResourceBonus implements Bonus {
 
@@ -23,7 +23,6 @@ public class ResourceBonus implements Bonus {
     this.collectedThisTurn = false;
   }
 
-  // allows Player to check potential collection
   public int getGold() {
     return type == ResourceType.GOLD && !collectedThisTurn ? amount : 0;
   }
@@ -40,7 +39,6 @@ public class ResourceBonus implements Bonus {
     return type == ResourceType.ENERGY && !collectedThisTurn ? amount : 0;
   }
 
-  // Use methods to deplete the bonus from the terrain
   public void useGold() {
     if (type == ResourceType.GOLD) {
       markCollected();
@@ -60,7 +58,7 @@ public class ResourceBonus implements Bonus {
   }
 
   public void useEnergy() {
-    if (type == ResourceType.FOOD) {
+    if (type == ResourceType.ENERGY) {
       markCollected();
     }
   }
@@ -92,6 +90,14 @@ public class ResourceBonus implements Bonus {
 
   public int getAmount() {
     return amount;
+  }
+
+  // Converts this bonus to a ResourceBundle with the appropriate field set
+  public ResourceBundle toBundle() {
+    int food = (type == ResourceType.FOOD && !collectedThisTurn) ? amount : 0;
+    int water = (type == ResourceType.WATER && !collectedThisTurn) ? amount : 0;
+    int gold = (type == ResourceType.GOLD && !collectedThisTurn) ? amount : 0;
+    return new ResourceBundle(food, water, gold);
   }
 
   @Override
