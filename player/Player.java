@@ -182,6 +182,10 @@ public class Player {
     );
   }
 
+  public boolean isDead() {
+    return food <= 0 || water <= 0 || energy <= 0;
+  }
+
   @Override
   public String toString() {
     return "Player Position: (" + locationX + ", " + locationY + "), " +
