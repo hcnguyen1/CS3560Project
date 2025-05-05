@@ -3,84 +3,99 @@ package bonus;
 // import player.Player;
 
 public class ResourceBonus implements Bonus {
-    public enum ResourceType {
-        FOOD, WATER, GOLD
-    }
 
-    private final ResourceType type;
-    private int amount;
-    private final boolean isRepeating;
-    private boolean collectedThisTurn;
+  public enum ResourceType {
+    FOOD,
+    WATER,
+    GOLD,
+    ENERGY,
+  }
 
-    public ResourceBonus(ResourceType type, int amount, boolean isRepeating) {
-        this.type = type;
-        this.amount = amount;
-        this.isRepeating = isRepeating;
-        this.collectedThisTurn = false;
-    }
+  private final ResourceType type;
+  private int amount;
+  private final boolean isRepeating;
+  private boolean collectedThisTurn;
 
-    // allows Player to check potential collection
-    public int getGold() {
-        return type == ResourceType.GOLD && !collectedThisTurn ? amount : 0;
-    }
+  public ResourceBonus(ResourceType type, int amount, boolean isRepeating) {
+    this.type = type;
+    this.amount = amount;
+    this.isRepeating = isRepeating;
+    this.collectedThisTurn = false;
+  }
 
-    public int getWater() {
-        return type == ResourceType.WATER && !collectedThisTurn ? amount : 0;
-    }
+  // allows Player to check potential collection
+  public int getGold() {
+    return type == ResourceType.GOLD && !collectedThisTurn ? amount : 0;
+  }
 
-    public int getFood() {
-        return type == ResourceType.FOOD && !collectedThisTurn ? amount : 0;
-    }
+  public int getWater() {
+    return type == ResourceType.WATER && !collectedThisTurn ? amount : 0;
+  }
 
-    public void useGold() {
-        if (type == ResourceType.GOLD) {
-            markCollected();
-        }
-    }
+  public int getFood() {
+    return type == ResourceType.FOOD && !collectedThisTurn ? amount : 0;
+  }
 
-    public void useWater() {
-        if (type == ResourceType.WATER) {
-            markCollected();
-        }
-    }
+  public int getEnergy() {
+    return type == ResourceType.ENERGY && !collectedThisTurn ? amount : 0;
+  }
 
-    public void useFood() {
-        if (type == ResourceType.FOOD) {
-            markCollected();
-        }
+  // Use methods to deplete the bonus from the terrain
+  public void useGold() {
+    if (type == ResourceType.GOLD) {
+      markCollected();
     }
+  }
 
-    private void markCollected() {
-        if (!isRepeating) {
-            amount = 0;
-        }
-        collectedThisTurn = true;
+  public void useWater() {
+    if (type == ResourceType.WATER) {
+      markCollected();
     }
+  }
 
-    public void resetTurn() {
-        if (isRepeating) {
-            collectedThisTurn = false;
-        }
+  public void useFood() {
+    if (type == ResourceType.FOOD) {
+      markCollected();
     }
+  }
 
-    public boolean isCollectedThisTurn() {
-        return collectedThisTurn;
+  public void useEnergy() {
+    if (type == ResourceType.FOOD) {
+      markCollected();
     }
+  }
 
-    public boolean isRepeating() {
-        return isRepeating;
+  private void markCollected() {
+    if (!isRepeating) {
+      amount = 0;
     }
+    collectedThisTurn = true;
+  }
 
-    public ResourceType getType() {
-        return type;
+  public void resetTurn() {
+    if (isRepeating) {
+      collectedThisTurn = false;
     }
+  }
 
-    public int getAmount() {
-        return amount;
-    }
+  public boolean isCollectedThisTurn() {
+    return collectedThisTurn;
+  }
 
-    @Override
-    public String toString() {
-        return type + " Bonus: " + amount + (isRepeating ? " (Repeating)" : "");
-    }
+  public boolean isRepeating() {
+    return isRepeating;
+  }
+
+  public ResourceType getType() {
+    return type;
+  }
+
+  public int getAmount() {
+    return amount;
+  }
+
+  @Override
+  public String toString() {
+    return type + " Bonus: " + amount + (isRepeating ? " (Repeating)" : "");
+  }
 }

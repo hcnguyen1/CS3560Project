@@ -1,5 +1,7 @@
 package terrain;
 
+import bonus.Bonus;
+
 public class Terrain {
 
   private Cost costs;
@@ -20,29 +22,30 @@ public class Terrain {
   public Cost getCost() {
     return costs.copy();
   }
-  /* Might not need this since, we already have Easy, Normal, Hard classes spawn rate methods
-  public float getSpawnRate() {
-    return spawnRate;
+
+  // Placeholder
+  public boolean hasFoodBonus() {
+    return false;
   }
 
-  public float getTerrainSpawnRate() {
-    return spawnRate;
+  public boolean hasWaterBonus() {
+    return false;
   }
 
-  public float getWaterSpawnRate() {
-    return spawnRate;
+  public boolean hasGoldBonus() {
+    return false;
   }
 
-  public float getFoodSpawnRate() {
-    return spawnRate;
+  public boolean hasTrader() {
+    return false;
   }
 
-  public float getGoldSpawnRate() {
-    return spawnRate;
-  }
+  // getTrader() and getBonus() for Player.java to use
+  // public Bonus getTrader() {
+  //   return null;
+  // }
 
-  public float getTraderSpawnRate() {
-    return spawnRate;
+  public Bonus getBonus() {
+    return null;
   }
-  */
 }
