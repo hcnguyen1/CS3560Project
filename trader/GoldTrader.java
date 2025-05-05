@@ -6,6 +6,11 @@ public class GoldTrader extends Trader {
         this.maxCounterOffers = 3;
     }
 
+    public static GoldTrader generateTrader(){
+        // we can adjust initial trader stuff here        
+        return new GoldTrader();
+    }
+
     @Override
     public boolean isOfferAcceptable(Offer offer) {
         ResourceBundle offered = offer.getPlayerOffer();

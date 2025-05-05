@@ -6,6 +6,11 @@ public class FoodTrader extends Trader {
         this.maxCounterOffers = 6;
     }
 
+    public static FoodTrader generateTrader(){
+        // we can adjust initial trader stuff here
+        return new FoodTrader();
+    }
+
     @Override
     public boolean isOfferAcceptable(Offer offer) {
         ResourceBundle offered = offer.getPlayerOffer();

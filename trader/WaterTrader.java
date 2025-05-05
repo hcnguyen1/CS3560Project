@@ -6,6 +6,11 @@ public class WaterTrader extends Trader {
         this.maxCounterOffers = 4;
     }
 
+    public static WaterTrader generateTrader(){
+        // we can adjust initial trader stuff here
+        return new WaterTrader();
+    }
+
     @Override
     public boolean isOfferAcceptable(Offer offer) {
         ResourceBundle offered = offer.getPlayerOffer();
