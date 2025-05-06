@@ -218,19 +218,7 @@ public class Player {
 
   @Override
   public String toString() {
-    return ("Player Position: (" +
-        locationX +
-        ", " +
-        locationY +
-        "), " +
-        "Food: " +
-        food +
-        ", Water: " +
-        water +
-        ", Energy: " +
-        energy +
-        ", Gold: " +
-        gold);
-        
+    return ("\nPlayer Position is now at: (" +locationX + ", " + locationY + ")" +" \nCurrent Supplies: " + 
+    "[Food]: " +food +", [Water]: " +water +", [Energy]: " +energy +", [Gold]: " +gold);
   }
 }

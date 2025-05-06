@@ -29,9 +29,7 @@ public class App {
     Player player = Map.getInstance().getPlayer();
 
     while (true) {
-      // Display the player's current state
-      //player.toString(); // calls from player.java last method
-      Thread.sleep(1000);
+      
       // Check if the player has reached the rightmost column
       if (player.getX() == width - 1) {
         System.out.println("Congratulations! You've won!");
@@ -44,18 +42,14 @@ public class App {
         System.exit(1); // program closes
       } else {
         // Make the player move if they are not dead
-
-
-        // Prints the player's current terrain
-        /*System.out.println(
-          "Current Terrain: " + Map.getInstance().getTerrainString(player.getX(), player.getY()));
+        // Display the player's current state
         
-        */
-        System.out.println(player);
         Terrain t = Map.getInstance().getTerrain(player.getX(), player.getY());
         System.out.println("Current Terrain: " + t.getNameTerrain());
         player.makeMove();
-        System.out.println("Player moved " + player.getDirection(player.getX(), player.getY()));
+        System.out.println("\nPlayer is moving " + player.getDirection(player.getX(), player.getY()));
+        Thread.sleep(1000);
+        System.out.println(player);
       }
     }
   }
