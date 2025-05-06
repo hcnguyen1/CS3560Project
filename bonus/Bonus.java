@@ -1,5 +1,7 @@
 package bonus;
 
+import trader.ResourceBundle;
+
 public interface Bonus {
   // Getters for the bonus values
   public int getGold();
@@ -18,4 +20,7 @@ public interface Bonus {
   public void useFood();
 
   public void useEnergy();
+
+  // Method for getting the resources gained when used 
+  public ResourceBundle useBonus();
 }
