@@ -98,7 +98,7 @@ public class Map {
   }
 
   public void spawnPlayer() {
-    int startingX = 0;
+    int startingX = 1;
     int startingY = height / 2; // Calculate the middle row
 
     // Create a new player or update the existing player's position
