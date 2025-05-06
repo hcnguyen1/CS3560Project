@@ -1,11 +1,11 @@
 package player;
 
 import bonus.Bonus;
-import map.Map;
+import difficulty.*;
 import java.util.Random;
+import map.Map;
 import terrain.Cost;
 import terrain.Terrain;
-import difficulty.*;
 
 //import default.Difficulty; the difficulty interface will have the values for each difficulty
 
@@ -49,10 +49,10 @@ public class Player {
 
     //Max values based on dificulty
     Difficulty difficulty = DifficultyManager.getDifficulty();
-      maxFood = difficulty.getMaxFood();
-      maxWater = difficulty.getMaxWater();
-      maxGold = difficulty.getMaxGold();
-      maxEnergy = difficulty.getMaxEnergy();
+    maxFood = difficulty.getMaxFood();
+    maxWater = difficulty.getMaxWater();
+    maxGold = difficulty.getMaxGold();
+    maxEnergy = difficulty.getMaxEnergy();
 
     //Initialize resource amounts
     food = maxFood;
@@ -92,7 +92,6 @@ public class Player {
         brain.setGoldThreshold(maxGold / 3);
       }
     }
-
   }
 
   public void makeMove() {
@@ -119,6 +118,10 @@ public class Player {
   //if there is no bonus, bonus = 0 added will have no effect
   public void useBonus() {
     Bonus b = this.getCurrentTerrain().getBonus();
+    //if there is no bonus, return
+    if (b == null) {
+      return;
+    }
     //if it doesn't go over the max, then use the bonus
     if ((gold + b.getGold() <= maxGold)) {
       gold += b.getGold();
@@ -137,7 +140,7 @@ public class Player {
   }
 
   public void useTrader() {
-    Bonus b = this.getCurrentTerrain().getTrader();
+    //Bonus b = this.getCurrentTerrain().getTrader();
     //TBC
   }
 
@@ -188,7 +191,20 @@ public class Player {
 
   @Override
   public String toString() {
-    return "Player Position: (" + locationX + ", " + locationY + "), " +
-           "Food: " + food + ", Water: " + water + ", Energy: " + energy + ", Gold: " + gold;
+    return (
+      "Player Position: (" +
+      locationX +
+      ", " +
+      locationY +
+      "), " +
+      "Food: " +
+      food +
+      ", Water: " +
+      water +
+      ", Energy: " +
+      energy +
+      ", Gold: " +
+      gold
+    );
   }
 }
