@@ -80,17 +80,17 @@ public class Map {
   }
 
   public void spawnPlayer() {
-    int startingX = 0; // The leftmost column
-    int startingY = height / 2; // The middle row
+    int startingX = 0;
+    int startingY = height / 2; // Calculate the middle row
 
     // Create a new player or update the existing player's position
     if (player == null) {
-        player = new Player(startingX, startingY); // Create a new player
+      player = new Player(startingX, startingY); // Create a new player
     } else {
-        player.setNextCoord(startingX, startingY); // Update the player's position
+      player.setNextCoord(startingX, startingY); // Update the player's position
     }
 
-    System.out.println("Player spawned at (" + startingX + ", " + startingY + ")");
+    System.out.println(player); // Print the player's position for verification
   }
 
   public Player getPlayer() {

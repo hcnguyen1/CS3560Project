@@ -43,6 +43,7 @@ public class App {
         System.exit(1); // program closes
       } else {
         // Make the player move if they are not dead
+        System.out.println(player);
         player.makeMove();
         System.out.println(
           "Player moved to: " + player.getX() + ", " + player.getY()
