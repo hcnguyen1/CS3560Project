@@ -1,11 +1,12 @@
-import java.util.Scanner; 
-import difficulty.Difficulty; 
-import difficulty.Easy; 
-import difficulty.Normal; 
-import difficulty.Hard; 
+import java.util.Scanner;
+import difficulty.Difficulty;
+import difficulty.Easy;
+import difficulty.Normal;
+import difficulty.Hard;
 
 public class Helper {
-    // for clean and abstracted coding i moved the configurations in this helper.java
+    // for clean and abstracted coding i moved the configurations in this
+    // helper.java
     public static Object[] getMapConfiguration() {
         Scanner sc = new Scanner(System.in);
 
@@ -16,28 +17,32 @@ public class Helper {
         int height = sc.nextInt();
 
         // Prompt user for difficulty
+        Difficulty difficulty = null;
+        int diff = 0;
+
         System.out.print("Select the difficulty Level: " +
                 "\n1. Easy \n2. Normal \n3. Hard\n");
-        int diff = sc.nextInt();
 
-        Difficulty difficulty = null;
+        while (difficulty == null) {
 
-        // Handle difficulty selection
-        switch (diff) {
-            case 1:
-                difficulty = new Easy();
-                System.out.println("You selected Easy difficulty.");
-                break;
-            case 2:
-                difficulty = new Normal();
-                System.out.println("You selected Normal difficulty.");
-                break;
-            case 3:
-                difficulty = new Hard();
-                System.out.println("You selected Hard difficulty.");
-                break;
-            default:
-                System.out.println("Invalid input. Please try again.");
+            diff = sc.nextInt();
+
+            switch (diff) {
+                case 1:
+                    difficulty = new Easy();
+                    System.out.println("You selected Easy difficulty.");
+                    break;
+                case 2:
+                    difficulty = new Normal();
+                    System.out.println("You selected Normal difficulty.");
+                    break;
+                case 3:
+                    difficulty = new Hard();
+                    System.out.println("You selected Hard difficulty.");
+                    break;
+                default:
+                    System.out.println("Invalid input. Please try again.");
+            }
         }
 
         sc.close();

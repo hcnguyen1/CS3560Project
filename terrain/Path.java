@@ -15,6 +15,7 @@ public class Path {
 
     public Path(Player p) {
         player = p;
+        costs = new Cost(0, 0, 0); // Initialize costs with zero values
     }
 
     public boolean setNextCoord(int Xcoord, int Ycoord) {
