@@ -11,7 +11,7 @@ import terrain.Terrain;
 
 public class Player {
 
-  //insert private variable here
+  // insert private variable here
   private Vision vision;
   private Brain brain = new Brain(this);
   private int gold = 0;
@@ -25,67 +25,69 @@ public class Player {
   private int food;
   private int energy;
 
-  //player location
+  // player location
   private int locationX;
   private int locationY;
+  private int previousX; 
+  private int previousY;
 
-  //constructor; randomizes the brain and vision type
+  // constructor; randomizes the brain and vision type
   public Player(int x, int y) {
     locationX = x;
     locationY = y;
-    //Randomize which vision to get
+    // Randomize which vision to get
     Random rng = new Random();
     int visionType = rng.nextInt(4) + 1;
 
-    vision =
-      switch (visionType) {
-        case 2 -> new CautiousVision(this);
-        case 3 -> new KeenEyedVision(this);
-        case 4 -> new FarSight(this);
-        default -> new FocusedVision(this);
-      }; //case 1
+    vision = switch (visionType) {
+      case 2 -> new CautiousVision(this);
+      case 3 -> new KeenEyedVision(this);
+      case 4 -> new FarSight(this);
+      default -> new FocusedVision(this);
+    }; // case 1
 
     brain.setVision(vision);
 
-    //Max values based on dificulty
+    // Max values based on dificulty
     Difficulty difficulty = DifficultyManager.getDifficulty();
     maxFood = difficulty.getMaxFood();
     maxWater = difficulty.getMaxWater();
     maxGold = difficulty.getMaxGold();
     maxEnergy = difficulty.getMaxEnergy();
 
-    //Initialize resource amounts
+    // Initialize resource amounts
     food = maxFood;
     water = maxWater;
     energy = maxEnergy;
 
-    //randomize brain personality type
+    // randomize brain personality type
     int brainType = rng.nextInt(4) + 1;
 
     switch (brainType) {
       case 2 -> {
-        //horder brain personality type; hord 2/3 of max amount
+        // horder brain personality type; hord 2/3 of max amount
         brain.setEnergyThreshold(maxEnergy / 3 * 2);
         brain.setFoodThreshold(maxFood / 3 * 2);
         brain.setWaterThreshold(maxWater / 3 * 2);
         brain.setGoldThreshold(maxGold / 3 * 2);
       }
       case 3 -> {
-        //life on the edge personality type; lowest thresholds
+        // life on the edge personality type; lowest thresholds
         brain.setEnergyThreshold(1);
         brain.setFoodThreshold(1);
         brain.setWaterThreshold(1);
         brain.setGoldThreshold(1);
       }
       case 4 -> {
-        //adventurous brain type; use up 1/4 food water and energy, but don't care much about hording gold
+        // adventurous brain type; use up 1/4 food water and energy, but don't care much
+        // about hording gold
         brain.setEnergyThreshold(maxEnergy / 4);
         brain.setFoodThreshold(maxFood / 4);
         brain.setWaterThreshold(maxWater / 4);
         brain.setGoldThreshold(1);
       }
       default -> {
-        //default brain type, use 1/3 of everything
+        // default brain type, use 1/3 of everything
         brain.setEnergyThreshold(maxEnergy / 3);
         brain.setFoodThreshold(maxFood / 3);
         brain.setWaterThreshold(maxWater / 3);
@@ -96,6 +98,7 @@ public class Player {
 
   public void makeMove() {
     brain.makeMove();
+
   }
 
   public Vision getVision() {
@@ -114,18 +117,18 @@ public class Player {
     return locationY;
   }
 
-  //Uses the bonuses if it does not exceed the maximum
-  //if there is no bonus, bonus = 0 added will have no effect
+  // Uses the bonuses if it does not exceed the maximum
+  // if there is no bonus, bonus = 0 added will have no effect
   public void useBonus() {
     Bonus b = this.getCurrentTerrain().getBonus();
-    //if there is no bonus, return
+    // if there is no bonus, return
     if (b == null) {
       return;
     }
-    //if it doesn't go over the max, then use the bonus
+    // if it doesn't go over the max, then use the bonus
     if ((gold + b.getGold() <= maxGold)) {
       gold += b.getGold();
-      b.useGold(); //depleates the gold from the bonus
+      b.useGold(); // depleates the gold from the bonus
     }
 
     if ((water + b.getWater() <= maxWater)) {
@@ -140,22 +143,48 @@ public class Player {
   }
 
   public void useTrader() {
-    //Bonus b = this.getCurrentTerrain().getTrader();
-    //TBC
+    // Bonus b = this.getCurrentTerrain().getTrader();
+    // TBC
   }
 
-  //assume brain already checked the costs and it can afford it
+  // assume brain already checked the costs and it can afford it
   public void useCost(Cost c) {
     water -= c.getWaterCost();
     food -= c.getFoodCost();
     energy -= c.getEnergyCost();
-    gold -= c.getGoldCost();
+    // gold -= c.getGoldCost(); // TOOK IT OFF, CAN RE-ADD LATER
   }
 
   public void setNextCoord(int x, int y) {
+
+    previousX = locationX;
+    previousY = locationY;
+
     locationX = x;
     locationY = y;
   }
+
+  public String getDirection(int locationX, int locationY) {
+    if (locationX > previousX && locationY == previousY) {
+        return "east";
+    } else if (locationX < previousX && locationY == previousY) {
+        return "west";
+    } else if (locationX == previousX && locationY > previousY) {
+        return "north";
+    } else if (locationX == previousX && locationY < previousY) {
+        return "south";
+    } else if (locationX > previousX && locationY > previousY) {
+        return "northeast";
+    } else if (locationX < previousX && locationY > previousY) {
+        return "northwest";
+    } else if (locationX > previousX && locationY < previousY) {
+        return "southeast";
+    } else if (locationX < previousX && locationY < previousY) {
+        return "southwest";
+    } else {
+        return "stationary";
+    }
+}
 
   public int getGoldAmount() {
     return gold;
@@ -174,15 +203,13 @@ public class Player {
   }
 
   public void death() {
-    //player death sequence
+    // player death sequence
   }
 
   public boolean canAfford(Cost cost) {
-    return (
-      this.getFoodAmount() >= cost.getFoodCost() &&
-      this.getWaterAmount() >= cost.getWaterCost() &&
-      this.getEnergyAmount() >= cost.getEnergyCost()
-    );
+    return (this.getFoodAmount() >= cost.getFoodCost() &&
+        this.getWaterAmount() >= cost.getWaterCost() &&
+        this.getEnergyAmount() >= cost.getEnergyCost());
   }
 
   public boolean isDead() {
@@ -191,20 +218,19 @@ public class Player {
 
   @Override
   public String toString() {
-    return (
-      "Player Position: (" +
-      locationX +
-      ", " +
-      locationY +
-      "), " +
-      "Food: " +
-      food +
-      ", Water: " +
-      water +
-      ", Energy: " +
-      energy +
-      ", Gold: " +
-      gold
-    );
+    return ("Player Position: (" +
+        locationX +
+        ", " +
+        locationY +
+        "), " +
+        "Food: " +
+        food +
+        ", Water: " +
+        water +
+        ", Energy: " +
+        energy +
+        ", Gold: " +
+        gold);
+        
   }
 }

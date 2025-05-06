@@ -23,7 +23,7 @@ public class Terrain {
     return costs.copy();
   }
 
-  // Placeholder
+  // This is currently being used with subclasses of Terrain
   public boolean hasFoodBonus() {
     return false;
   }
@@ -47,5 +47,9 @@ public class Terrain {
 
   public Bonus getBonus() {
     return null;
+  }
+
+  public String getNameTerrain() {
+    return "Terrain";
   }
 }

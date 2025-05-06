@@ -47,12 +47,29 @@ public class Map {
     return null;
   }
 
+  // Return string of the terrain at the given coordinates
+  public String getTerrainString(int x, int y) {
+    Terrain terrain = getTerrain(x, y);
+    if (terrain != null) {
+      return terrain.toString(); // Call the toString() method of the Terrain object
+    }
+    return "Invalid coordinates";
+  }
+
   public void generateTerrain(Difficulty difficulty) {
     //Difficulty difficulty = DifficultyManager.getDifficulty();
 
+    /*for (int x = 0; x < width; x++) {
+      for (int y = 0; y < height; y++) {
+        Terrain terrain = new Plains();
+        terrainGrid[x][y] = terrain;
+      }
+    }
+      */
+
     for (int x = 0; x < width; x++) {
       for (int y = 0; y < height; y++) {
-        double roll = Math.random(); // Random value between 0 and 1
+        double roll = Math.random();
         Terrain terrain;
 
         double plainsRate = difficulty.getPlainsSpawnRate();
@@ -77,6 +94,7 @@ public class Map {
         terrainGrid[x][y] = terrain;
       }
     }
+      
   }
 
   public void spawnPlayer() {

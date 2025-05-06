@@ -2,6 +2,7 @@ import difficulty.Difficulty;
 import difficulty.DifficultyManager;
 import map.Map;
 import player.Player;
+import terrain.Terrain;
 
 public class App {
 
@@ -29,7 +30,7 @@ public class App {
 
     while (true) {
       // Display the player's current state
-      player.toString(); // calls from player.java last method
+      //player.toString(); // calls from player.java last method
       Thread.sleep(1000);
       // Check if the player has reached the rightmost column
       if (player.getX() == width - 1) {
@@ -43,11 +44,18 @@ public class App {
         System.exit(1); // program closes
       } else {
         // Make the player move if they are not dead
+
+
+        // Prints the player's current terrain
+        /*System.out.println(
+          "Current Terrain: " + Map.getInstance().getTerrainString(player.getX(), player.getY()));
+        
+        */
         System.out.println(player);
+        Terrain t = Map.getInstance().getTerrain(player.getX(), player.getY());
+        System.out.println("Current Terrain: " + t.getNameTerrain());
         player.makeMove();
-        System.out.println(
-          "Player moved to: " + player.getX() + ", " + player.getY()
-        );
+        System.out.println("Player moved " + player.getDirection(player.getX(), player.getY()));
       }
     }
   }
