@@ -32,6 +32,8 @@ public class App {
         while (true) {
             // Display the player's current state
             player.toString(); // calls from player.java last method
+            Terrain currentTerrain = Map.getInstance().getTerrain(player.getX(), player.getY());
+            System.out.println("The player is current in the " + currentTerrain + " terrain.");
             Thread.sleep(1000);
             // Check if the player has reached the rightmost column
             if (player.getX() == width - 1) {
