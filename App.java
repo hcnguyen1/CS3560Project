@@ -31,7 +31,7 @@ public class App {
     while (true) {
       
       // Check if the player has reached the rightmost column
-      if (player.getX() == width - 1) {
+      if (player.getX() == width) {
         System.out.println("Congratulations! You've won!");
         break;
       }
