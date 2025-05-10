@@ -28,6 +28,11 @@ public class Easy implements Difficulty {
   }
 
   @Override
+  public double getTraderSpawnRate() {
+    return 0.15; // 15% chance to spawn trader
+  }
+
+  @Override
   public int getMaxFood() {
     return 100;
   }

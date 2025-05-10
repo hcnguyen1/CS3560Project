@@ -69,7 +69,17 @@ public class Helper {
 
     public static void checkTrader(Terrain t) {
         if (t.hasTrader()) {
-            System.out.println("\nA trader is here! You can trade resources with them.");
+            trader.Trader trader = t.getTrader();
+            String type;
+            if (trader instanceof trader.FoodTrader) {
+                type = "Food Trader";
+            } else if (trader instanceof trader.WaterTrader) {
+                type = "Water Trader";
+            } else {
+                type = "Gold Trader";
+            }
+            
+            System.out.println("\nA " + type + " is here! You can trade resources with them.");
         }
     }
 }

@@ -28,6 +28,11 @@ public class Normal implements Difficulty {
   }
 
   @Override
+  public double getTraderSpawnRate() {
+    return 0.10; // 10% chance to spawn trader
+  }
+
+  @Override
   public int getMaxFood() {
     return 75;
   }

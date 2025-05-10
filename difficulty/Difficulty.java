@@ -12,6 +12,8 @@ public interface Difficulty {
 
   double getDesertSpawnRate();
 
+  double getTraderSpawnRate();
+
   int getMaxFood();
 
   int getMaxWater();

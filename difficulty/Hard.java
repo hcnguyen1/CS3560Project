@@ -28,6 +28,11 @@ public class Hard implements Difficulty {
   }
 
   @Override
+  public double getTraderSpawnRate() {
+    return 0.05; // 5% chance to spawn trader
+  }
+
+  @Override
   public int getMaxFood() {
     return 50;
   }

@@ -56,6 +56,9 @@ public class Map {
     return "Invalid coordinates";
   }
 
+  // generates terrain using the map as a grid. The rolls are the 
+  // chances out of 100 indepdent from other terrain spawn rates.
+  // spawnTrader is called here as when the terrain is generated, the trader is also generated.
   public void generateTerrain(Difficulty difficulty) {
     for (int x = 0; x < width; x++) {
         for (int y = 0; y < height; y++) {
@@ -81,15 +84,14 @@ public class Map {
 
             terrainGrid[x][y] = terrain;
 
-            // Assign a trader using the helper function
-            spawnTrader(terrain);
+            // spawns a trader using the current terrain and difficulty setting
+            spawnTrader(terrain, difficulty);
         }
     }
   }
 
-  private void spawnTrader(Terrain terrain) {
-    // 10% chance to assign a trader
-    if (Math.random() < 0.1) {
+  private void spawnTrader(Terrain terrain, Difficulty difficulty) {
+    if (Math.random() < difficulty.getTraderSpawnRate()) { // can be 15% 10% or 5%
         int type = (int)(Math.random() * 3);
         switch (type) {
             case 0: terrain.setTrader(new trader.FoodTrader()); break;
