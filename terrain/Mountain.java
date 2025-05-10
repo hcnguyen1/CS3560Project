@@ -1,5 +1,9 @@
 package terrain;
 
+import bonus.Bonus;
+import bonus.ResourceBonus.ResourceType;
+import bonus.ResourceBonus;
+
 public class Mountain extends Terrain {
 
   private static final int MOVEMENT_COST = 3;

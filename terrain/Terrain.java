@@ -1,6 +1,8 @@
 package terrain;
 
 import bonus.Bonus;
+import bonus.ResourceBonus;
+import bonus.ResourceBonus.ResourceType;
 
 public class Terrain {
 
@@ -22,6 +24,15 @@ public class Terrain {
   // get Costs
   public Cost getCost() {
     return costs.copy();
+  }
+
+    // getTrader() and getBonus() for Player.java to use
+  public Bonus getBonus() {
+    return null;
+  }
+
+  public boolean hasBonus() {
+    return false;
   }
 
   // This is currently being used with subclasses of Terrain
@@ -47,11 +58,6 @@ public class Terrain {
 
   public void setTrader(trader.Trader t) {
     this.trader = t;
-  }
-
-  // getTrader() and getBonus() for Player.java to use
-  public Bonus getBonus() {
-    return null;
   }
 
   public String getNameTerrain() {

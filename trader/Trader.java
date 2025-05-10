@@ -6,6 +6,7 @@ public abstract class Trader {
     protected int counterOffersGiven = 0;
     protected int maxCounterOffers;
 
+
     public boolean canCounterOffer() {
         return counterOffersGiven < maxCounterOffers;
     }

@@ -4,7 +4,7 @@ import trader.ResourceBundle;
 
 public class ResourceBonus implements Bonus {
 
-  public enum ResourceType {
+  public static enum ResourceType {
     FOOD,
     WATER,
     GOLD,

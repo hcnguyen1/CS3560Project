@@ -23,8 +23,9 @@ public class App {
         // globally.
         Map.getInstance(width, height).generateTerrain(difficulty);
 
-        // Spawn the player
+        // Spawn the player; Player will print it's spawning message
         Map.getInstance().spawnPlayer();
+        Thread.sleep(5000);
 
         // Get the player instance
         Player player = Map.getInstance().getPlayer();
@@ -50,11 +51,12 @@ public class App {
 
                 // this function allows the player to move the brain class
                 player.makeMove();
+                Thread.sleep(5000);
                 System.out.println("\nPlayer is now moving " + player.getDirection(player.getX(), player.getY()));
 
                 // this is a delayed timer to make sure the print screen isn't
                 // spitting out all the information at once
-                Thread.sleep(1000);
+                Thread.sleep(1500);
 
                 // this calls the players toString method to print out the details of their
                 // inventory and their status.

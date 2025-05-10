@@ -1,5 +1,7 @@
 package terrain;
 
+import bonus.Bonus;
+
 public class Desert extends Terrain {
 
   private static final int MOVEMENT_COST = 2;
@@ -15,6 +17,11 @@ public class Desert extends Terrain {
   @Override
   public String getNameTerrain() {
     return this.NAME;
+  }
+
+  @Override
+  public Bonus getBonus() {
+    return null;
   }
 
   public void getStory() {

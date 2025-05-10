@@ -5,6 +5,8 @@ import difficulty.Normal;
 import difficulty.Hard;
 import player.Player;
 import terrain.Terrain;
+import trader.Trader;
+import trader.ResourceBundle;
 
 public class Helper {
     // for clean and abstracted coding i moved the configurations in this
@@ -63,7 +65,7 @@ public class Helper {
         } else {
             System.out.println("\nNo usable resources here...");
         }
-
+    
         player.useBonus();
     }
 
@@ -82,4 +84,17 @@ public class Helper {
             System.out.println("\nA " + type + " is here! You can trade resources with them.");
         }
     }
+
+    public static void interactWithTrader(Player player, Terrain t) {
+
+        ResourceBundle ob
+
+        if (trader.isOfferAcceptable(offer) {
+            System.out.println("Accepted.");
+            player.
+        })
+        
+    }
+
+
 }

@@ -35,16 +35,26 @@ public class Player {
   public Player(int x, int y) {
     locationX = x;
     locationY = y;
+
+  System.out.print("\n\nPlayer has been created.\n\nPlayer Vision Type: ");
+
     // Randomize which vision to get
     Random rng = new Random();
     int visionType = rng.nextInt(4) + 1;
 
-    vision = switch (visionType) {
-      case 2 -> new CautiousVision(this);
-      case 3 -> new KeenEyedVision(this);
-      case 4 -> new FarSight(this);
-      default -> new FocusedVision(this);
-    }; // case 1
+    if(visionType == 2) {
+      vision = new CautiousVision(this);
+      System.out.println("Cautious");
+    } else if (visionType == 3) {
+      vision = new KeenEyedVision(this); 
+      System.out.println("Keen Eyed");
+    } else if (visionType ==4) {
+      vision = new FarSight(this); 
+      System.out.println("Far Sighted");
+    } else {
+      vision = new FocusedVision(this); 
+      System.out.println("Focused Vision");
+    }
 
     brain.setVision(vision);
 
@@ -59,9 +69,12 @@ public class Player {
     food = maxFood;
     water = maxWater;
     energy = maxEnergy;
+    gold = maxGold;
 
     // randomize brain personality type
     int brainType = rng.nextInt(4) + 1;
+
+    System.out.print("Player Personality Type: ");
 
     switch (brainType) {
       case 2 -> {
@@ -70,6 +83,7 @@ public class Player {
         brain.setFoodThreshold(maxFood / 3 * 2);
         brain.setWaterThreshold(maxWater / 3 * 2);
         brain.setGoldThreshold(maxGold / 3 * 2);
+        System.out.println("Horder");
       }
       case 3 -> {
         // life on the edge personality type; lowest thresholds
@@ -77,6 +91,7 @@ public class Player {
         brain.setFoodThreshold(1);
         brain.setWaterThreshold(1);
         brain.setGoldThreshold(1);
+        System.out.println("Risk Taker");
       }
       case 4 -> {
         // adventurous brain type; use up 1/4 food water and energy, but don't care much
@@ -85,6 +100,7 @@ public class Player {
         brain.setFoodThreshold(maxFood / 4);
         brain.setWaterThreshold(maxWater / 4);
         brain.setGoldThreshold(1);
+        System.out.println("Adventurer");
       }
       default -> {
         // default brain type, use 1/3 of everything
@@ -92,13 +108,13 @@ public class Player {
         brain.setFoodThreshold(maxFood / 3);
         brain.setWaterThreshold(maxWater / 3);
         brain.setGoldThreshold(maxGold / 3);
+        System.out.println("Default");
       }
     }
   }
 
   public void makeMove() {
     brain.makeMove();
-
   }
 
   public Vision getVision() {
@@ -126,14 +142,14 @@ public class Player {
       return;
     }
     // if it doesn't go over the max, then use the bonus
-    if ((gold + b.getGold() <= maxGold)) {
+    if (gold + b.getGold() <= maxGold) {
       gold += b.getGold();
-      b.useGold(); // depleates the gold from the bonus
+      b.useGold();
     }
 
-    if ((water + b.getWater() <= maxWater)) {
-      water += b.getWater();
-      b.useWater();
+    if (food + b.getFood() <= maxFood) {
+      food += b.getFood();
+      b.useFood();
     }
 
     if ((food + b.getFood() <= maxFood)) {
@@ -152,7 +168,7 @@ public class Player {
     water -= c.getWaterCost();
     food -= c.getFoodCost();
     energy -= c.getEnergyCost();
-    gold -= c.getGoldCost(); 
+    //gold -= c.getGoldCost(); 
   }
 
   public void setNextCoord(int x, int y) {
@@ -202,10 +218,6 @@ public class Player {
     return energy;
   }
 
-  public void death() {
-    // player death sequence
-  }
-
   public boolean canAfford(Cost cost) {
     return (this.getFoodAmount() >= cost.getFoodCost() &&
         this.getWaterAmount() >= cost.getWaterCost() &&
@@ -213,7 +225,7 @@ public class Player {
   }
 
   public boolean isDead() {
-    return food <= 0 || water <= 0 || energy <= 0;
+    return food <= 0 || water <= 0;
   }
 
   @Override
@@ -221,4 +233,7 @@ public class Player {
     return ("\nPlayer Position is now at: (" +locationX + ", " + locationY + ")" +" \nCurrent Supplies: " + 
     "[Food]: " +food +", [Water]: " +water +", [Energy]: " +energy +", [Gold]: " +gold);
   }
+
+
+  
 }

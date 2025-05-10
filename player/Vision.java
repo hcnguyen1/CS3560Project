@@ -58,6 +58,11 @@ public abstract class Vision {
         i--;
       }
     }
+    
+    // Sort by farthest east
+    filtered.sort(Comparator.comparingInt(p -> p.getStepX()));
+    // filtered.reversed();
+    Collections.reverse(filtered);
 
     return filtered;
   }

@@ -11,7 +11,7 @@ public class Brain {
     int goldThreshold;
     int energyThreshold;
     Path currentPath;
-    double n = 1.5; //multiplier 
+    double n = 1.2; //multiplier 
     Player player;
     Vision vision;
 
@@ -76,19 +76,15 @@ public class Brain {
         c.setEnergyCost(-1);
         
         player.useCost(c);
-
-          //if the player is stuck, all resources will eventually be used
-          //once any resources are all used, the player dies
-        if (player.getFoodAmount()<0 || player.getWaterAmount() < 0) {
-            player.death();
-        }
     }
 
     private void energyConversion() {
+        System.out.println("Not enough energy. Using energy conservation strategy.");
         this.stay();
     }
 
     private void scavengerStrategy() {
+        System.out.println("Critical. Low on food and water. Using scavenger strategy.");
         // Get the closest and second closest resource paths (food or water)
         Path closest;
         Path second;
@@ -162,18 +158,23 @@ public class Brain {
     
         // If food is below the threshold, look for the two closest food sources
         if (player.getFoodAmount() < foodThreshold) {
+            System.out.println("I have a lot of water but not a lot of food. Using equalizer strategy.");
             first = vision.closestFood();
             second = vision.secondClosestFood();
         }
     
         // If water is below the threshold, look for the two closest water sources
         if (player.getWaterAmount() < waterThreshold) {
+            System.out.println("I have a lot of food but not a lot of water. Using equalizer strategy.");
             first = vision.closestWater();
             second = vision.secondClosestWater();
         }
     
         // Always consider a path to the closest trader
         Path trader = vision.closestTrader();
+        if (player.getGoldAmount()>goldThreshold) {
+            System.out.println("I have a good amount of gold. Looking for a trader.");
+        }
     
         // Choose the best path out of the two resources and the trader
         Path bestPath = costBenefitAnalysis(first, second, trader);
@@ -199,12 +200,14 @@ public class Brain {
 
         // If food is below the threshold, get the two closest food paths
         if (player.getFoodAmount() < foodThreshold) {
+            System.out.println("Low on food. Using low on one strategy.");
             p1 = vision.closestFood();
             p2 = vision.secondClosestFood();
         }
     
         // If water is below the threshold, get the two closest water paths
         if (player.getWaterAmount() < waterThreshold) {
+            System.out.println("Low on water. Using low on one strategy.");
             p1 = vision.closestWater();
             p2 = vision.secondClosestWater();
         }
@@ -230,6 +233,7 @@ public class Brain {
     //Take the easiest path
     //generates a new easiest path when currentPath is null, otherwise continue on the path
     private void richStrategy() {
+        System.out.println("I have plenty of resources. Using rich strategy.");
         if (currentPath == null || currentPath.getNumSteps() == 0) {
             List<Path> paths = vision.easiestPath();
             currentPath = paths.get(0);

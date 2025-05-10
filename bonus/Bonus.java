@@ -1,5 +1,6 @@
 package bonus;
 
+import bonus.ResourceBonus.ResourceType;
 import trader.ResourceBundle;
 
 public interface Bonus {
