@@ -6,6 +6,7 @@ public class Terrain {
 
   private Cost costs;
   private float spawnRate;
+  private trader.Trader trader;
 
   // Constructor
   public Terrain(
@@ -37,14 +38,18 @@ public class Terrain {
   }
 
   public boolean hasTrader() {
-    return false;
+    return trader != null;
+  }
+
+  public trader.Trader getTrader() {
+    return trader;
+  }
+
+  public void setTrader(trader.Trader t) {
+    this.trader = t;
   }
 
   // getTrader() and getBonus() for Player.java to use
-  // public Bonus getTrader() {
-  //   return null;
-  // }
-
   public Bonus getBonus() {
     return null;
   }

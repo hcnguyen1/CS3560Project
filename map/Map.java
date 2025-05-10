@@ -66,7 +66,6 @@ public class Map {
             int forestRate = (int)(difficulty.getForestSpawnRate() * 100);
             int mountainRate = (int)(difficulty.getMountainSpawnRate() * 100);
             int lakeRate = (int)(difficulty.getLakeSpawnRate() * 100);
-            //int desertRate = 100 - (plainsRate + forestRate + mountainRate + lakeRate);
 
             if (roll < plainsRate) {
                 terrain = new Plains();
@@ -81,6 +80,21 @@ public class Map {
             }
 
             terrainGrid[x][y] = terrain;
+
+            // Assign a trader using the helper function
+            spawnTrader(terrain);
+        }
+    }
+  }
+
+  private void spawnTrader(Terrain terrain) {
+    // 10% chance to assign a trader
+    if (Math.random() < 0.1) {
+        int type = (int)(Math.random() * 3);
+        switch (type) {
+            case 0: terrain.setTrader(new trader.FoodTrader()); break;
+            case 1: terrain.setTrader(new trader.WaterTrader()); break;
+            case 2: terrain.setTrader(new trader.GoldTrader()); break;
         }
     }
   }

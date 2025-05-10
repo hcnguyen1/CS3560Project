@@ -3,6 +3,8 @@ import difficulty.Difficulty;
 import difficulty.Easy;
 import difficulty.Normal;
 import difficulty.Hard;
+import player.Player;
+import terrain.Terrain;
 
 public class Helper {
     // for clean and abstracted coding i moved the configurations in this
@@ -51,7 +53,7 @@ public class Helper {
         return new Object[] { width, height, difficulty };
     }
 
-    public static void printTerrainBonuses(terrain.Terrain t) {
+    public static void printTerrainBonuses(Player player, Terrain t) {
         if (t.hasGoldBonus()) {
             System.out.println("\nThere is gold here!");
         } else if (t.hasWaterBonus()) {
@@ -60,6 +62,14 @@ public class Helper {
             System.out.println("\nThere is food here!");
         } else {
             System.out.println("\nNo usable resources here...");
+        }
+
+        player.useBonus();
+    }
+
+    public static void checkTrader(Terrain t) {
+        if (t.hasTrader()) {
+            System.out.println("\nA trader is here! You can trade resources with them.");
         }
     }
 }

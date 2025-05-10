@@ -43,7 +43,10 @@ public class App {
                 System.out.println("Current Terrain: " + t.getNameTerrain());
 
                 // This function prints out the bonuses dependent on the terrain.
-                Helper.printTerrainBonuses(t);
+                Helper.printTerrainBonuses(player, t);
+
+                // this function checks if theres a trader in the current terrain.
+                Helper.checkTrader(t);
 
                 // this function allows the player to move the brain class
                 player.makeMove();
