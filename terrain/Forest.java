@@ -17,6 +17,11 @@ public class Forest extends Terrain {
     return this.NAME;
   }
 
+  @Override
+  public boolean hasFoodBonus() {
+    return true;
+  }
+
   public void getStory() {
 
   }

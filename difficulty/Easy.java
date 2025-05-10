@@ -4,7 +4,7 @@ public class Easy implements Difficulty {
 
   @Override
   public double getDesertSpawnRate() {
-    return 0.05; // 5% desert
+    return 0.125; // 12.5% desert
   }
 
   @Override
@@ -19,12 +19,12 @@ public class Easy implements Difficulty {
 
   @Override
   public double getPlainsSpawnRate() {
-    return 0.4; // 40% Plains
+    return 0.125; // 12.5% Plains
   }
 
   @Override
-  public double getSwampSpawnRate() {
-    return 0.05; // 5% Swamp
+  public double getLakeSpawnRate() {
+    return 0.25; // 20% lake
   }
 
   @Override

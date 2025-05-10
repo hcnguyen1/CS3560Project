@@ -8,7 +8,7 @@ public interface Difficulty {
 
   double getMountainSpawnRate();
 
-  double getSwampSpawnRate();
+  double getLakeSpawnRate();
 
   double getDesertSpawnRate();
 

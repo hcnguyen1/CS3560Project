@@ -50,4 +50,16 @@ public class Helper {
         // Return both the map dimensions and the difficulty
         return new Object[] { width, height, difficulty };
     }
+
+    public static void printTerrainBonuses(terrain.Terrain t) {
+        if (t.hasGoldBonus()) {
+            System.out.println("\nThere is gold here!");
+        } else if (t.hasWaterBonus()) {
+            System.out.println("\nThere is water here!");
+        } else if (t.hasFoodBonus()) {
+            System.out.println("\nThere is food here!");
+        } else {
+            System.out.println("\nNo usable resources here...");
+        }
+    }
 }

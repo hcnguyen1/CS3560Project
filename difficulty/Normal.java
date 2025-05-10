@@ -4,27 +4,27 @@ public class Normal implements Difficulty {
 
   @Override
   public double getDesertSpawnRate() {
-    return 0.15; // 15% desert
+    return 0.25; // 25% desert
   }
 
   @Override
   public double getForestSpawnRate() {
-    return 0.2; // 20% Forest
+    return 0.15; // 15% Forest
   }
 
   @Override
   public double getMountainSpawnRate() {
-    return 0.2; // 20% Mountain
+    return 0.15; // 15% Mountain
   }
 
   @Override
   public double getPlainsSpawnRate() {
-    return 0.3; // 30% Plains
+    return 0.30; // 30% Plains
   }
 
   @Override
-  public double getSwampSpawnRate() {
-    return 0.15; // 15% Swamp
+  public double getLakeSpawnRate() {
+    return 0.15; // 15% Lake
   }
 
   @Override

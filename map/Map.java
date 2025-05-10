@@ -5,7 +5,7 @@ import terrain.Desert;
 import terrain.Forest;
 import terrain.Mountain;
 import terrain.Plains;
-import terrain.Swamp;
+import terrain.Lake;
 import terrain.Terrain;
 import difficulty.Difficulty;
 
@@ -57,44 +57,32 @@ public class Map {
   }
 
   public void generateTerrain(Difficulty difficulty) {
-    //Difficulty difficulty = DifficultyManager.getDifficulty();
-
-    /*for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        Terrain terrain = new Plains();
-        terrainGrid[x][y] = terrain;
-      }
-    }
-      */
-
     for (int x = 0; x < width; x++) {
-      for (int y = 0; y < height; y++) {
-        double roll = Math.random();
-        Terrain terrain;
+        for (int y = 0; y < height; y++) {
+            int roll = (int)(Math.random() * 100);
+            Terrain terrain;
 
-        double plainsRate = difficulty.getPlainsSpawnRate();
-        double forestRate = plainsRate + difficulty.getForestSpawnRate();
-        double mountainRate = forestRate + difficulty.getMountainSpawnRate();
-        double swampRate = mountainRate + difficulty.getSwampSpawnRate();
-        //double desertRate = swampRate + difficulty.getDesertSpawnRate();
+            int plainsRate = (int)(difficulty.getPlainsSpawnRate() * 100);
+            int forestRate = (int)(difficulty.getForestSpawnRate() * 100);
+            int mountainRate = (int)(difficulty.getMountainSpawnRate() * 100);
+            int lakeRate = (int)(difficulty.getLakeSpawnRate() * 100);
+            //int desertRate = 100 - (plainsRate + forestRate + mountainRate + lakeRate);
 
-        // Determine terrain based on roll
-        if (roll < plainsRate) {
-          terrain = new Plains();
-        } else if (roll < forestRate) {
-          terrain = new Forest();
-        } else if (roll < mountainRate) {
-          terrain = new Mountain();
-        } else if (roll < swampRate) {
-          terrain = new Swamp();
-        } else {
-          terrain = new Desert();
+            if (roll < plainsRate) {
+                terrain = new Plains();
+            } else if (roll < plainsRate + forestRate) {
+                terrain = new Forest();
+            } else if (roll < plainsRate + forestRate + mountainRate) {
+                terrain = new Mountain();
+            } else if (roll < plainsRate + forestRate + mountainRate + lakeRate) {
+                terrain = new Lake();
+            } else {
+                terrain = new Desert();
+            }
+
+            terrainGrid[x][y] = terrain;
         }
-
-        terrainGrid[x][y] = terrain;
-      }
     }
-      
   }
 
   public void spawnPlayer() {

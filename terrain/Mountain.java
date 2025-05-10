@@ -17,6 +17,11 @@ public class Mountain extends Terrain {
     return this.NAME;
   }
 
+  @Override
+  public boolean hasGoldBonus() {
+    return true;
+  }
+
   public void getStory() {
 
   }

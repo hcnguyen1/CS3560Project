@@ -39,11 +39,23 @@ public class App {
                 // Make the player move if they are not dead
                 // Display the player's current state
 
+                // Prints out the players current position and their current terrain.
                 Terrain t = Map.getInstance().getTerrain(player.getX(), player.getY());
                 System.out.println("Current Terrain: " + t.getNameTerrain());
+
+                // This function prints out the bonuses dependent on the terrain.
+                Helper.printTerrainBonuses(t);
+
+
+                // this function allows the player to move the brain class
                 player.makeMove();
-                System.out.println("\nPlayer is moving " + player.getDirection(player.getX(), player.getY()));
+                System.out.println("\nPlayer is now moving " + player.getDirection(player.getX(), player.getY()));
+
+                // this is a delayed timer to make sure the print screen isn't 
+                // spitting out all the information at once
                 Thread.sleep(1000);
+
+                // this calls the players toString method to print out the details of their inventory and their status.
                 System.out.println(player);
 
                 // Check if the player has reached the rightmost column

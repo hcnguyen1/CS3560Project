@@ -4,27 +4,27 @@ public class Hard implements Difficulty {
 
   @Override
   public double getDesertSpawnRate() {
-    return 0.2; // 20% desert
+    return 0.35; // 35% desert
   }
 
   @Override
   public double getForestSpawnRate() {
-    return 0.2; // 20% Forest
+    return 0.10; // 20% Forest
   }
 
   @Override
   public double getMountainSpawnRate() {
-    return 0.2; // 20% Mountain
+    return 0.10; // 20% Mountain
   }
 
   @Override
   public double getPlainsSpawnRate() {
-    return 0.2; // 20% Plains
+    return 0.35; // 35% Plains
   }
 
   @Override
-  public double getSwampSpawnRate() {
-    return 0.2; // 20% Swamp
+  public double getLakeSpawnRate() {
+    return 0.10; // 20% Lake
   }
 
   @Override
