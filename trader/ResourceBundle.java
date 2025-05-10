@@ -19,5 +19,6 @@ public class ResourceBundle {
     public String toString() {
         return String.format("%d food, %d water, %d gold", food, water, gold);
     }
+    
 }
 

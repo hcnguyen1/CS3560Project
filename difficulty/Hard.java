@@ -34,21 +34,21 @@ public class Hard implements Difficulty {
 
   @Override
   public int getMaxFood() {
-    return 50;
+    return 10;
   }
 
   @Override
   public int getMaxWater() {
-    return 50;
+    return 10;
   }
 
   @Override
   public int getMaxGold() {
-    return 50;
+    return 10;
   }
 
   @Override
   public int getMaxEnergy() {
-    return 50;
+    return 10;
   }
 }

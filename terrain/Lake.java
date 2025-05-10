@@ -11,7 +11,7 @@ public class Lake extends Terrain {
   private static final int FOOD_COST = 1;
   private static final float SPAWN_RATE = 0.3f;
   private static final String NAME = "Lake";
-  private static final int BONUS_WATER_AMOUNT = 5;
+  private static final int BONUS_WATER_AMOUNT = 2;
 
   public Lake() {
     super(MOVEMENT_COST, WATER_COST, FOOD_COST, SPAWN_RATE);

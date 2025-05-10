@@ -34,21 +34,21 @@ public class Normal implements Difficulty {
 
   @Override
   public int getMaxFood() {
-    return 75;
+    return 20;
   }
 
   @Override
   public int getMaxWater() {
-    return 75;
+    return 20;
   }
 
   @Override
   public int getMaxGold() {
-    return 75;
+    return 20;
   }
 
   @Override
   public int getMaxEnergy() {
-    return 75;
+    return 20;
   }
 }

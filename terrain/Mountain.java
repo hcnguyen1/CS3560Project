@@ -11,7 +11,7 @@ public class Mountain extends Terrain {
   private static final int FOOD_COST = 1;
   private static final float SPAWN_RATE = 0.1f;
   private static final String NAME = "Mountain";
-  private static final int BONUS_GOLD_AMOUNT = 3;
+  private static final int BONUS_GOLD_AMOUNT = 2;
 
   public Mountain() {
     super(MOVEMENT_COST, WATER_COST, FOOD_COST, SPAWN_RATE);
@@ -29,7 +29,7 @@ public class Mountain extends Terrain {
 
   @Override
   public boolean hasGoldBonus() {
-    return true;
+    return true;  
   }
 
   public void getStory() {

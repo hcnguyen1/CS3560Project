@@ -2,6 +2,7 @@ package terrain;
 
 import bonus.Bonus;
 import bonus.ResourceBonus;
+import bonus.ResourceBonus.ResourceType;
 
 public class Plains extends Terrain {
 
@@ -23,11 +24,11 @@ public class Plains extends Terrain {
   @Override
   public Bonus getBonus() {
     if (hasFoodBonus()) {
-      return new ResourceBonus(ResourceBonus.ResourceType.FOOD, 1, false);
+      return new ResourceBonus(ResourceType.FOOD, 1, false);
     } else if (hasWaterBonus()) {
-      return new ResourceBonus(ResourceBonus.ResourceType.WATER, 1, false);
+      return new ResourceBonus(ResourceType.WATER, 1, false);
     } else if (hasGoldBonus()) {
-      return new ResourceBonus(ResourceBonus.ResourceType.GOLD, 1, false);
+      return new ResourceBonus(ResourceType.GOLD, 1, false);
     }
     return null;
   }

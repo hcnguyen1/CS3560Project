@@ -25,7 +25,7 @@ public class App {
 
         // Spawn the player; Player will print it's spawning message
         Map.getInstance().spawnPlayer();
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         // Get the player instance
         Player player = Map.getInstance().getPlayer();
@@ -51,7 +51,7 @@ public class App {
 
                 // this function allows the player to move the brain class
                 player.makeMove();
-                Thread.sleep(5000);
+                //Thread.sleep(2000);
                 System.out.println("\nPlayer is now " + player.getDirection(player.getX(), player.getY()));
 
                 // this is a delayed timer to make sure the print screen isn't

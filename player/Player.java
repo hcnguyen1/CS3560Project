@@ -145,16 +145,19 @@ public class Player {
     if (gold + b.getGold() <= maxGold) {
       gold += b.getGold();
       b.useGold();
-    }
+    } /*else { //if it does, then use the difference
+      int diff = maxGold - b.getGold();
+      b.useGold(diff);
+    }*/
 
     if (food + b.getFood() <= maxFood) {
       food += b.getFood();
       b.useFood();
     }
 
-    if ((food + b.getFood() <= maxFood)) {
-      food += b.getFood();
-      b.useFood();
+    if ((water + b.getWater() <= maxWater)) {
+      water += b.getWater();
+      b.useWater();
     }
   }
 

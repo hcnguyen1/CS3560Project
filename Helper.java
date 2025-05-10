@@ -7,6 +7,7 @@ import player.Player;
 import terrain.Terrain;
 import trader.Trader;
 import trader.ResourceBundle;
+import trader.Offer;
 
 public class Helper {
     // for clean and abstracted coding i moved the configurations in this
@@ -85,14 +86,27 @@ public class Helper {
         }
     }
 
+    public static void getTrader() {
+
+    }
+
     public static void interactWithTrader(Player player, Terrain t) {
 
-        ResourceBundle ob
+        // the type of trader is now assigned here.
+        Trader trader = t.getTrader();
+        
 
-        if (trader.isOfferAcceptable(offer) {
+        ResourceBundle offer = new ResourceBundle(2, 2, 2);
+        ResourceBundle request= new ResourceBundle(1, 1, 1);
+        
+        
+
+
+        if (trader.isOfferAcceptable(offer)) {
             System.out.println("Accepted.");
-            player.
-        })
+
+            
+        }
         
     }
 

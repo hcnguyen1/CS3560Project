@@ -58,13 +58,24 @@ public abstract class Vision {
         i--;
       }
     }
-    
+
     // Sort by farthest east
     filtered.sort(Comparator.comparingInt(p -> p.getStepX()));
     // filtered.reversed();
     Collections.reverse(filtered);
 
     return filtered;
+  }
+
+  public Path eastMostPath() {
+    Path path = new Path(player);
+    int x = player.getX() + 1;
+    int y = player.getY();
+    if (path.setNextCoord(x, y)) {
+      return path;
+    } else {
+      return null;
+    }
   }
 
   // ==== Closest/Second Closest Resource Paths ====

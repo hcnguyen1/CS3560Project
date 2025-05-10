@@ -235,8 +235,8 @@ public class Brain {
     private void richStrategy() {
         System.out.println("I have plenty of resources. Using rich strategy.");
         if (currentPath == null || currentPath.getNumSteps() == 0) {
-            List<Path> paths = vision.easiestPath();
-            currentPath = paths.get(0);
+            Path east = vision.eastMostPath();
+            currentPath = east;
             currentPath.takePath();
         } else { 
             currentPath.takePath();

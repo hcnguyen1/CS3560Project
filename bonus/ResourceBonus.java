@@ -44,10 +44,13 @@ public class ResourceBonus implements Bonus {
       markCollected();
       switch(type){
         case GOLD:
+          System.out.println("Acquired gold");
           return new ResourceBundle(0, 0, amount);
         case WATER:
+          System.out.println("Acquired water");
           return new ResourceBundle(0, amount, 0);
         case FOOD:
+          System.out.println("Acquired food");
           return new ResourceBundle(amount, 0, 0);
         case ENERGY:
         // doesn't do anything rn. can adjust later to implement how energy is collected / modified 

@@ -34,21 +34,21 @@ public class Easy implements Difficulty {
 
   @Override
   public int getMaxFood() {
-    return 100;
+    return 30;
   }
 
   @Override
   public int getMaxWater() {
-    return 100;
+    return 30;
   }
 
   @Override
   public int getMaxGold() {
-    return 100;
+    return 30;
   }
 
   @Override
   public int getMaxEnergy() {
-    return 100;
+    return 30;
   }
 }

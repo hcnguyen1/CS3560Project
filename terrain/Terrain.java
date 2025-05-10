@@ -3,6 +3,7 @@ package terrain;
 import bonus.Bonus;
 import bonus.ResourceBonus;
 import bonus.ResourceBonus.ResourceType;
+import trader.Trader;
 
 public class Terrain {
 
@@ -52,13 +53,11 @@ public class Terrain {
     return trader != null;
   }
 
-
-  // getTrader() for player
   public trader.Trader getTrader() {
     return trader;
   }
 
-  public void setTrader(trader.Trader t) {
+  public void setTrader(Trader t) {
     this.trader = t;
   }
 
