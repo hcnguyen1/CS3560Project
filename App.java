@@ -52,7 +52,7 @@ public class App {
                 // this function allows the player to move the brain class
                 player.makeMove();
                 Thread.sleep(5000);
-                System.out.println("\nPlayer is now moving " + player.getDirection(player.getX(), player.getY()));
+                System.out.println("\nPlayer is now " + player.getDirection(player.getX(), player.getY()));
 
                 // this is a delayed timer to make sure the print screen isn't
                 // spitting out all the information at once

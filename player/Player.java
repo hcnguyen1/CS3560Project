@@ -182,23 +182,23 @@ public class Player {
 
   public String getDirection(int locationX, int locationY) {
     if (locationX > previousX && locationY == previousY) {
-        return "east";
+        return "moving east.";
     } else if (locationX < previousX && locationY == previousY) {
-        return "west";
+        return "moving west.";
     } else if (locationX == previousX && locationY > previousY) {
-        return "north";
+        return "moving north.";
     } else if (locationX == previousX && locationY < previousY) {
-        return "south";
+        return "moving south.";
     } else if (locationX > previousX && locationY > previousY) {
-        return "northeast";
+        return "moving northeast.";
     } else if (locationX < previousX && locationY > previousY) {
-        return "northwest";
+        return "moving northwest.";
     } else if (locationX > previousX && locationY < previousY) {
-        return "southeast";
+        return "moving southeast.";
     } else if (locationX < previousX && locationY < previousY) {
-        return "southwest";
+        return "moving southwest.";
     } else {
-        return "stationary";
+        return "stationary.";
     }
 }
 

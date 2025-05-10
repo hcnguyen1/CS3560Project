@@ -31,6 +31,7 @@ public class Forest extends Terrain {
   public boolean hasFoodBonus() {
     return true;
   }
+  
   public void getStory() {
 
   }

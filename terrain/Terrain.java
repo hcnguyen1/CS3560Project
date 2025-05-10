@@ -26,7 +26,7 @@ public class Terrain {
     return costs.copy();
   }
 
-    // getTrader() and getBonus() for Player.java to use
+  // getBonus() for Player.java to use
   public Bonus getBonus() {
     return null;
   }
@@ -52,6 +52,8 @@ public class Terrain {
     return trader != null;
   }
 
+
+  // getTrader() for player
   public trader.Trader getTrader() {
     return trader;
   }
