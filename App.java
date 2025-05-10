@@ -30,7 +30,6 @@ public class App {
         Player player = Map.getInstance().getPlayer();
 
         while (true) {
-
             // check if player is dead, if they aren't then they are able to move.
             if (player.isDead()) { // still undefined
                 System.out.println("Game Over! The player has died.");
@@ -46,16 +45,16 @@ public class App {
                 // This function prints out the bonuses dependent on the terrain.
                 Helper.printTerrainBonuses(t);
 
-
                 // this function allows the player to move the brain class
                 player.makeMove();
                 System.out.println("\nPlayer is now moving " + player.getDirection(player.getX(), player.getY()));
 
-                // this is a delayed timer to make sure the print screen isn't 
+                // this is a delayed timer to make sure the print screen isn't
                 // spitting out all the information at once
                 Thread.sleep(1000);
 
-                // this calls the players toString method to print out the details of their inventory and their status.
+                // this calls the players toString method to print out the details of their
+                // inventory and their status.
                 System.out.println(player);
 
                 // Check if the player has reached the rightmost column

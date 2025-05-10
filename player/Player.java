@@ -152,7 +152,7 @@ public class Player {
     water -= c.getWaterCost();
     food -= c.getFoodCost();
     energy -= c.getEnergyCost();
-    // gold -= c.getGoldCost(); // TOOK IT OFF, CAN RE-ADD LATER
+    gold -= c.getGoldCost(); 
   }
 
   public void setNextCoord(int x, int y) {
