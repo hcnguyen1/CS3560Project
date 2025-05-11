@@ -1,0 +1,186 @@
+Welcome to Wilderness Survival System (WSS)!
+Enter map width: 50
+Enter map height: 50
+Select the difficulty Level: 
+1. Easy 
+2. Normal 
+3. Hard
+1
+You selected Easy difficulty.
+
+
+Player has been created.
+
+Player Vision Type: Keen Eyed
+Player Personality Type: Risk Taker
+
+Player Position is now at: (1, 25) 
+Current Supplies: [Food]: 30, [Water]: 30, [Energy]: 30, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Forest
+Sunlight dapples through the dense forest canopy, illuminating the vibrant undergrowth and the distant sounds of animals.
+
+There is food here!
+Food acquired!
+
+Player Position is now at: (2, 25) 
+Current Supplies: [Food]: 30, [Water]: 29, [Energy]: 28, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 2, [Water]: 2, [Energy]: 3
+Current Terrain: Mountain
+Rocky slopes climb sharply into the sky, with cold winds and dizzying heights demanding careful footing.
+
+There is gold here!
+
+Player Position is now at: (3, 25) 
+Current Supplies: [Food]: 28, [Water]: 27, [Energy]: 25, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Forest
+In the forest, beams of light pierce the canopy, revealing a lively undergrowth filled with rustling leaves and distant animal calls.
+
+There is food here!
+Food acquired!
+
+Player Position is now at: (4, 25)
+Current Supplies: [Food]: 29, [Water]: 26, [Energy]: 23, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Forest
+The forest glows with scattered sunlight, alive with the rustle of leaves and the calls of unseen creatures.
+
+There is food here!
+Food acquired!
+
+Player Position is now at: (5, 25)
+Current Supplies: [Food]: 30, [Water]: 25, [Energy]: 21, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 2, [Water]: 2, [Energy]: 3
+Current Terrain: Mountain
+Rocky slopes climb sharply into the sky, with cold winds and dizzying heights demanding careful footing.
+
+There is gold here!
+
+A Gold Trader is here! You can trade resources with them.
+
+I cannot hold anymore gold.
+
+Player part ways with the trader.
+
+
+Player Position is now at: (6, 25)
+Current Supplies: [Food]: 28, [Water]: 23, [Energy]: 18, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Lake
+Sunken ruins peek through the turquoise depths, their moss-covered stones home to schools of curious fish and something ancient that watches from below.
+
+There is water here!
+Water acquired!
+
+Player Position is now at: (7, 25)
+Current Supplies: [Food]: 27, [Water]: 25, [Energy]: 16, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Lake
+The vast lake stretches to the horizon, its wave-tossed surface hiding treacherous currents that have claimed ships now resting in the lightless abyss.
+
+There is water here!
+Water acquired!
+
+Player Position is now at: (8, 25)
+Current Supplies: [Food]: 26, [Water]: 27, [Energy]: 14, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Forest
+The forest is alive with flickering sunlight, rustling leaves, and the faint calls of creatures hidden among the trees.
+
+There is food here!
+Food acquired!
+
+Player Position is now at: (9, 25)
+Current Supplies: [Food]: 27, [Water]: 26, [Energy]: 12, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Lake
+The lake's center churns with a perpetual whirlpool, its depths rumored to hold a sunken temple guarded by tentacled leviathans that surface during storms.
+
+There is water here!
+Water acquired!
+
+Player Position is now at: (10, 25)
+Current Supplies: [Food]: 26, [Water]: 28, [Energy]: 10, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Forest
+Towering trees let sunlight through in patches, lighting up the lush forest floor where wildlife stirs in the shadows.
+
+There is food here!
+Food acquired!
+
+A Food Trader is here! You can trade resources with them.
+Trying to trade...
+Trader has rejected your proposal and has given a counter offer.
+Player: I must decline.
+
+Player part ways with the trader.
+
+
+Player Position is now at: (11, 25)
+Current Supplies: [Food]: 27, [Water]: 27, [Energy]: 8, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 1, [Water]: 1, [Energy]: 2
+Current Terrain: Forest
+Sunlight filters through the tall trees, casting dancing shadows on the vibrant undergrowth alive with the sounds of wildlife.
+
+There is food here!
+Food acquired!
+
+Player Position is now at: (12, 25)
+Current Supplies: [Food]: 28, [Water]: 26, [Energy]: 6, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 2, [Water]: 2, [Energy]: 3
+Current Terrain: Mountain
+Rugged peaks rise sharply into the mist, where biting cold and narrow ledges test your every move.
+
+There is gold here!
+
+Player Position is now at: (13, 25)
+Current Supplies: [Food]: 26, [Water]: 24, [Energy]: 3, [Gold]: 30
+I have plenty of resources. Using rich strategy.
+
+Player is now moving east.
+Costs to get there: [Food]: 3, [Water]: 3, [Energy]: 3
+Current Terrain: Desert
+The relentless sun blazes over shifting sands, with heat waves and distant mirages testing your strength.
+
+No usable resources here...
+
+Player Position is now at: (14, 25)
+Current Supplies: [Food]: 23, [Water]: 21, [Energy]: 0, [Gold]: 30
+Game Over! The player has died.
