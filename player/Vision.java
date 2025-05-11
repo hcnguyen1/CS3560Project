@@ -42,7 +42,7 @@ public abstract class Vision {
   // Returns all lowest movement cost paths
   public List<Path> easiestPath() {
     List<Path> paths = this.getAllPaths();
-    if (paths == null || paths.isEmpty()) {
+    if (paths.isEmpty()) {
       return null;
     }
 
@@ -127,31 +127,37 @@ public abstract class Vision {
       return easiest.get(easiest.size() - 1);
     }
 
-    // Filter paths by resource type
     List<Path> filtered = new ArrayList<>();
-    for (int i = 0; i < paths.size(); i++) {
-      Terrain dest = paths.get(i).getDestination();
-      if (matchesType(dest, type)) {
-        filtered.add(paths.get(i));
+
+    if (!paths.isEmpty()) {
+        // Filter paths by resource type
+      for (int i = 0; i < paths.size(); i++) {
+        Terrain dest = paths.get(i).getDestination();
+        if (matchesType(dest, type)) {
+          filtered.add(paths.get(i));
+        }
+      }
+
+      if (!filtered.isEmpty()) {
+      // Sort by movement cost
+        filtered.sort(Comparator.comparingInt(p -> p.getCost().getEnergyCost()));
+        int minCost = filtered.get(0).getCost().getEnergyCost();
+
+        //remove all paths with a greater movement cost
+        for (int i = 1; i < filtered.size(); i++) {
+          if (filtered.get(i).getCost().getEnergyCost() > minCost) {
+            filtered.remove(i);
+            i--;
+          }
+        }
+
+        // Sort by farthest east
+        filtered.sort(Comparator.comparingInt(p -> p.getStepX()));
+        // filtered.reversed();
+        Collections.reverse(filtered);
       }
     }
 
-    // Sort by movement cost
-    filtered.sort(Comparator.comparingInt(p -> p.getCost().getEnergyCost()));
-    int minCost = filtered.get(0).getCost().getEnergyCost();
-
-    //remove all paths with a greater movement cost
-    for (int i = 1; i < filtered.size(); i++) {
-      if (filtered.get(i).getCost().getEnergyCost() > minCost) {
-        filtered.remove(i);
-        i--;
-      }
-    }
-
-    // Sort by farthest east
-    filtered.sort(Comparator.comparingInt(p -> p.getStepX()));
-    // filtered.reversed();
-    Collections.reverse(filtered);
 
     return (rank <= filtered.size()) ? filtered.get(rank - 1) : null;
   }

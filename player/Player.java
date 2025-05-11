@@ -14,21 +14,21 @@ public class Player {
   // insert private variable here
   private Vision vision;
   private Brain brain = new Brain(this);
-  private int gold = 0;
+  public int gold = 0;
 
   private int maxWater;
   private int maxFood;
   private int maxEnergy;
   private int maxGold;
 
-  private int water;
-  private int food;
-  private int energy;
+  public int water;
+  public int food;
+  public int energy;
 
   // player location
   private int locationX;
   private int locationY;
-  private int previousX; 
+  private int previousX;
   private int previousY;
 
   // constructor; randomizes the brain and vision type
@@ -36,23 +36,23 @@ public class Player {
     locationX = x;
     locationY = y;
 
-  System.out.print("\n\nPlayer has been created.\n\nPlayer Vision Type: ");
+    System.out.print("\n\nPlayer has been created.\n\nPlayer Vision Type: ");
 
     // Randomize which vision to get
     Random rng = new Random();
     int visionType = rng.nextInt(4) + 1;
 
-    if(visionType == 2) {
+    if (visionType == 2) {
       vision = new CautiousVision(this);
       System.out.println("Cautious");
     } else if (visionType == 3) {
-      vision = new KeenEyedVision(this); 
+      vision = new KeenEyedVision(this);
       System.out.println("Keen Eyed");
-    } else if (visionType ==4) {
-      vision = new FarSight(this); 
+    } else if (visionType == 4) {
+      vision = new FarSight(this);
       System.out.println("Far Sighted");
     } else {
-      vision = new FocusedVision(this); 
+      vision = new FocusedVision(this);
       System.out.println("Focused Vision");
     }
 
@@ -137,27 +137,38 @@ public class Player {
   // if there is no bonus, bonus = 0 added will have no effect
   public void useBonus() {
     Bonus b = this.getCurrentTerrain().getBonus();
-    // if there is no bonus, return
-    if (b == null) {
+
+    if (b != null) {
+      b.useBonus(this);
+    } else {
       return;
     }
-    // if it doesn't go over the max, then use the bonus
-    if (gold + b.getGold() <= maxGold) {
-      gold += b.getGold();
-      b.useGold();
-    } /*else { //if it does, then use the difference
-      int diff = maxGold - b.getGold();
-      b.useGold(diff);
-    }*/
+  }
 
-    if (food + b.getFood() <= maxFood) {
-      food += b.getFood();
-      b.useFood();
+  public void useGold(int goldAmount) {
+    int newGold = gold + goldAmount;
+    if (newGold > maxGold) {
+      gold = maxGold;
+    } else {
+      gold = newGold;
     }
+  }
 
-    if ((water + b.getWater() <= maxWater)) {
-      water += b.getWater();
-      b.useWater();
+  public void useWater(int waterAmount) {
+    int newWater = water + waterAmount;
+    if (newWater > maxWater) {
+      water = maxWater;
+    } else {
+      water = newWater;
+    }
+  }
+
+  public void useFood(int foodAmount) {
+    int newFood = food + foodAmount;
+    if (newFood > maxFood) {
+      food = newFood;
+    } else {
+      food = newFood;
     }
   }
 
@@ -171,7 +182,7 @@ public class Player {
     water -= c.getWaterCost();
     food -= c.getFoodCost();
     energy -= c.getEnergyCost();
-    //gold -= c.getGoldCost(); 
+    // gold -= c.getGoldCost();
   }
 
   public void setNextCoord(int x, int y) {
@@ -185,26 +196,27 @@ public class Player {
 
   public String getDirection(int locationX, int locationY) {
     if (locationX > previousX && locationY == previousY) {
-        return "moving east.";
+      return "moving east.";
     } else if (locationX < previousX && locationY == previousY) {
-        return "moving west.";
+      return "moving west.";
     } else if (locationX == previousX && locationY > previousY) {
-        return "moving north.";
+      return "moving north.";
     } else if (locationX == previousX && locationY < previousY) {
-        return "moving south.";
+      return "moving south.";
     } else if (locationX > previousX && locationY > previousY) {
-        return "moving northeast.";
+      return "moving northeast.";
     } else if (locationX < previousX && locationY > previousY) {
-        return "moving northwest.";
+      return "moving northwest.";
     } else if (locationX > previousX && locationY < previousY) {
-        return "moving southeast.";
+      return "moving southeast.";
     } else if (locationX < previousX && locationY < previousY) {
-        return "moving southwest.";
+      return "moving southwest.";
     } else {
-        return "stationary.";
+      return "stationary.";
     }
-}
+  }
 
+  // get resource amounts
   public int getGoldAmount() {
     return gold;
   }
@@ -228,15 +240,13 @@ public class Player {
   }
 
   public boolean isDead() {
-    return food <= 0 || water <= 0;
+    return food <= 0 || water <= 0 || energy <= 0;
   }
 
   @Override
   public String toString() {
-    return ("\nPlayer Position is now at: (" +locationX + ", " + locationY + ")" +" \nCurrent Supplies: " + 
-    "[Food]: " +food +", [Water]: " +water +", [Energy]: " +energy +", [Gold]: " +gold);
+    return ("\nPlayer Position is now at: (" + locationX + ", " + locationY + ")" + " \nCurrent Supplies: " +
+        "[Food]: " + food + ", [Water]: " + water + ", [Energy]: " + energy + ", [Gold]: " + gold);
   }
 
-
-  
 }

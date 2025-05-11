@@ -1,6 +1,7 @@
 package bonus;
 
-import trader.ResourceBundle;
+// import trader.ResourceBundle;
+import player.Player;
 
 public class ResourceBonus implements Bonus {
 
@@ -35,54 +36,44 @@ public class ResourceBonus implements Bonus {
     return type == ResourceType.FOOD && !collectedThisTurn ? amount : 0;
   }
 
-  public int getEnergy() {
-    return type == ResourceType.ENERGY && !collectedThisTurn ? amount : 0;
-  }
-
-  public ResourceBundle useBonus(){
-    if (!collectedThisTurn && amount > 0){
+  public void useBonus(Player player) {
+    if (!collectedThisTurn && amount > 0) {
+      int gain = 0;
       markCollected();
-      switch(type){
+      switch (type) {
         case GOLD:
-          System.out.println("Acquired gold");
-          return new ResourceBundle(0, 0, amount);
+          player.useGold(this.getGold());
+          System.out.println("Gold acquired!");
+          break;
         case WATER:
-          System.out.println("Acquired water");
-          return new ResourceBundle(0, amount, 0);
+          player.useWater(this.getWater());
+          System.out.println("Water acquired!");
+          break;
         case FOOD:
-          System.out.println("Acquired food");
-          return new ResourceBundle(amount, 0, 0);
-        case ENERGY:
-        // doesn't do anything rn. can adjust later to implement how energy is collected / modified 
-          return new ResourceBundle(0, 0, 0);  
+          player.useFood(this.getFood());
+          System.out.println("Food acquired!");
+          break;
         default:
-          return new ResourceBundle(0, 0, 0);
+          break;
       }
     }
-    return new ResourceBundle(0, 0, 0);
   }
 
   public void useGold() {
     if (type == ResourceType.GOLD) {
-      useBonus();
+      amount = 0;
     }
   }
 
   public void useWater() {
     if (type == ResourceType.WATER) {
-      useBonus();
+      amount = 0;
     }
   }
 
   public void useFood() {
     if (type == ResourceType.FOOD) {
-      useBonus();
-    }
-  }
-
-  public void useEnergy() {
-    if (type == ResourceType.ENERGY) {
-      useBonus();
+      amount = 0;
     }
   }
 
@@ -116,12 +107,12 @@ public class ResourceBonus implements Bonus {
   }
 
   // Converts this bonus to a ResourceBundle with the appropriate field set
-  public ResourceBundle toBundle() {
-    int food = (type == ResourceType.FOOD && !collectedThisTurn) ? amount : 0;
-    int water = (type == ResourceType.WATER && !collectedThisTurn) ? amount : 0;
-    int gold = (type == ResourceType.GOLD && !collectedThisTurn) ? amount : 0;
-    return new ResourceBundle(food, water, gold);
-  }
+  // public ResourceBundle toBundle() {
+  // int food = (type == ResourceType.FOOD && !collectedThisTurn) ? amount : 0;
+  // int water = (type == ResourceType.WATER && !collectedThisTurn) ? amount : 0;
+  // int gold = (type == ResourceType.GOLD && !collectedThisTurn) ? amount : 0;
+  // return new ResourceBundle(food, water, gold);
+  // }
 
   @Override
   public String toString() {

@@ -1,4 +1,5 @@
 package player;
+
 import terrain.Path;
 import terrain.Cost;
 import terrain.Terrain;
@@ -11,11 +12,11 @@ public class Brain {
     int goldThreshold;
     int energyThreshold;
     Path currentPath;
-    double n = 1.2; //multiplier 
+    double n = 1.2; // multiplier
     Player player;
     Vision vision;
 
-    public Brain (Player p) {
+    public Brain(Player p) {
         player = p;
     }
 
@@ -23,7 +24,7 @@ public class Brain {
         vision = v;
     }
 
-    //These values can determine brain personality
+    // These values can determine brain personality
     public void setWaterThreshold(int w) {
         waterThreshold = w;
     }
@@ -46,36 +47,41 @@ public class Brain {
         int energy = player.getEnergyAmount();
         int gold = player.getGoldAmount();
 
-        //determine which strategy to use
-        if (food >= foodThreshold && water >= waterThreshold) { //both food and water is above threshold
+        // determine which strategy to use
+        if (food >= foodThreshold && water >= waterThreshold) { // both food and water is above threshold
             if (energy < energyThreshold) {
                 this.energyConversion();
             } else {
                 this.richStrategy();
             }
-        } else if (food <= foodThreshold && water <= waterThreshold) { //both food and water is below threshold
+        } else if (food <= foodThreshold && water <= waterThreshold) { // both food and water is below threshold
             this.scavengerStrategy();
-        } else { //one is below threshold, one is above
+        } else { // one is below threshold, one is above
 
-            //there is n times more water than food or food than water or player has gold to spend
-            if (food >= n*water || water >= n*food || gold > goldThreshold) {
+            // there is n times more water than food or food than water or player has gold
+            // to spend
+            if (food >= n * water || water >= n * food || gold > goldThreshold) {
                 this.equalizerStrategy();
-            } else { //the player has about an equal amount of food and water but one is below the threshold
+            } else { // the player has about an equal amount of food and water but one is below the
+                     // threshold
                 this.lowOnOneStrategy();
             }
         }
 
     }
 
-    //use half the costs of the terrain where the player is staying and gain energy
-    //if the player is staying, it has either run out of energy or out of resources and is stuck
+    // use half the costs of the terrain where the player is staying and gain energy
+    // if the player is staying, it has either run out of energy or out of resources
+    // and is stuck
     private void stay() {
         Cost c = player.getCurrentTerrain().getCost().half();
 
-        //gain 1 energy for staying
-        c.setEnergyCost(-1);
-        
+        // gain 2 energy for staying
+        c.setEnergyCost(-2);
+
         player.useCost(c);
+
+        player.setNextCoord(player.getX(), player.getY());
     }
 
     private void energyConversion() {
@@ -91,8 +97,8 @@ public class Brain {
         int foodAmount = player.getFoodAmount();
         int waterAmount = player.getWaterAmount();
 
-        //if lower on food, look for food; if lower on water, look for water
-        //if low on both, look for both
+        // if lower on food, look for food; if lower on water, look for water
+        // if low on both, look for both
         if (foodAmount < waterAmount) {
             closest = vision.closestFood();
             second = vision.secondClosestFood();
@@ -110,7 +116,8 @@ public class Brain {
             trader = vision.closestTrader();
         }
 
-        // Evaluate all options and choose the best path based on resource needs and cost
+        // Evaluate all options and choose the best path based on resource needs and
+        // cost
         Path bestPath = costBenefitAnalysis(closest, second, trader);
 
         if (bestPath != null) {
@@ -120,11 +127,10 @@ public class Brain {
 
             // If the new tile has a resource bonus, collect it
             player.useBonus();
-        }
-        else {
-            //check second option; if food lower than water, check water
-            //if water lower than food, check food
-            //if low on both, check second closest path for both
+        } else {
+            // check second option; if food lower than water, check water
+            // if water lower than food, check food
+            // if low on both, check second closest path for both
             if (foodAmount < waterAmount) {
                 closest = vision.closestWater();
                 second = vision.secondClosestWater();
@@ -136,7 +142,7 @@ public class Brain {
                 second = vision.secondClosestWater();
             }
 
-            //choose the best path
+            // choose the best path
             bestPath = costBenefitAnalysis(closest, second, trader);
 
             if (bestPath != null) {
@@ -145,8 +151,9 @@ public class Brain {
 
                 player.useBonus();
             } else {
-                // If no valid paths were found, stay in place
-                this.stay();
+                // If no valid paths were found, move east
+                currentPath = vision.eastMostPath();
+                currentPath.takePath();
             }
         }
 
@@ -155,27 +162,27 @@ public class Brain {
     private void equalizerStrategy() {
         Path first = null;
         Path second = null;
-    
+
         // If food is below the threshold, look for the two closest food sources
         if (player.getFoodAmount() < foodThreshold) {
             System.out.println("I have a lot of water but not a lot of food. Using equalizer strategy.");
             first = vision.closestFood();
             second = vision.secondClosestFood();
         }
-    
+
         // If water is below the threshold, look for the two closest water sources
         if (player.getWaterAmount() < waterThreshold) {
             System.out.println("I have a lot of food but not a lot of water. Using equalizer strategy.");
             first = vision.closestWater();
             second = vision.secondClosestWater();
         }
-    
+
         // Always consider a path to the closest trader
         Path trader = vision.closestTrader();
-        if (player.getGoldAmount()>goldThreshold) {
+        if (player.getGoldAmount() > goldThreshold) {
             System.out.println("I have a good amount of gold. Looking for a trader.");
         }
-    
+
         // Choose the best path out of the two resources and the trader
         Path bestPath = costBenefitAnalysis(first, second, trader);
 
@@ -183,13 +190,14 @@ public class Brain {
             // Move along the selected best path
             currentPath = bestPath;
             currentPath.takePath();
-    
+
             // Use bonus on the tile
             player.useBonus();
-    
+
         } else {
-            // If no path is found, stay on current tile
-            this.stay(); // fallback
+            // If no valid paths were found, move east
+            currentPath = vision.eastMostPath();
+            currentPath.takePath();
         }
     }
 
@@ -197,62 +205,58 @@ public class Brain {
         Path p1 = null;
         Path p2 = null;
 
-
         // If food is below the threshold, get the two closest food paths
         if (player.getFoodAmount() < foodThreshold) {
             System.out.println("Low on food. Using low on one strategy.");
             p1 = vision.closestFood();
             p2 = vision.secondClosestFood();
         }
-    
+
         // If water is below the threshold, get the two closest water paths
         if (player.getWaterAmount() < waterThreshold) {
             System.out.println("Low on water. Using low on one strategy.");
             p1 = vision.closestWater();
             p2 = vision.secondClosestWater();
         }
-    
-        // Choose the best path between the two resource paths (no trader considered here)
+
+        // Choose the best path between the two resource paths (no trader considered
+        // here)
         Path bestPath = costBenefitAnalysis(p1, p2, null); // null trader path
-    
+
         if (bestPath != null) {
             // Move along the best path
             currentPath = bestPath;
             currentPath.takePath();
-    
+
             // Use any bonus on the new tile
             player.useBonus();
-    
+
         } else {
-            // Stay in place if no useful path is found
-            this.stay(); // fallback if no valid path
+            // If no valid paths were found, move east
+            currentPath = vision.eastMostPath();
+            currentPath.takePath();
         }
-    
+
     }
 
-    //Take the easiest path
-    //generates a new easiest path when currentPath is null, otherwise continue on the path
+    // Take the eastmost
+    // generates a east most when currentPath is null
     private void richStrategy() {
         System.out.println("I have plenty of resources. Using rich strategy.");
-        if (currentPath == null || currentPath.getNumSteps() == 0) {
-            Path east = vision.eastMostPath();
-            currentPath = east;
-            currentPath.takePath();
-        } else { 
-            currentPath.takePath();
-        }
+        currentPath = vision.eastMostPath();
+        currentPath.takePath();
 
-        //use the bonuses at the terrain the player enters
-        //the path object takes care of the costs
+        // use the bonuses at the terrain the player enters
+        // the path object takes care of the costs
         player.useBonus();
     }
 
-    //compare all paths, including current one
+    // compare all paths, including current one
     private Path costBenefitAnalysis(Path p1, Path p2, Path p3) {
-        Path bestPath = currentPath; // Include current path as starting candidate
+        Path bestPath = null;
         double bestScore = 0;
 
-        Path[] paths = {p1, p2, p3, currentPath};
+        Path[] paths = { p1, p2, p3 };
 
         for (Path path : paths) {
             if (path != null) {
@@ -284,7 +288,7 @@ public class Brain {
                 // ==== Evaluate Trader Bonus ====
                 if (dest.hasTrader()) {
                     boolean needsToTrade = player.getGoldAmount() >= goldThreshold &&
-                        (player.getFoodAmount() < foodThreshold || player.getWaterAmount() < waterThreshold);
+                            (player.getFoodAmount() < foodThreshold || player.getWaterAmount() < waterThreshold);
                     if (needsToTrade) {
                         score += 12;
                     }
@@ -297,7 +301,7 @@ public class Brain {
                 // ==== Keep highest scoring path ====
                 if (bestPath == null || score > bestScore) {
                     bestPath = path;
-                    bestScore = score; 
+                    bestScore = score;
                 }
             }
         }

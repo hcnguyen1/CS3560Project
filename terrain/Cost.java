@@ -37,7 +37,20 @@ public class Cost {
     }
 
     public Cost half() {
-        Cost c = new Cost(energyCost/2, waterCost/2, foodCost/2);
+        int e = energyCost / 2;
+        int w = waterCost / 2;
+        int f = foodCost / 2;
+
+        if (energyCost % 2 == 1) {
+            e += 1;
+        }
+        if (waterCost % 2 == 1) {
+            w += 1;
+        }
+        if (foodCost % 2 == 1) {
+            f += 1;
+        }
+        Cost c = new Cost(e, w, f);
         return c;
     }
 
@@ -47,4 +60,7 @@ public class Cost {
         energyCost += c.getEnergyCost();
     }
 
+    public String toString() {
+        return ("Costs to get there: [Food]: " + foodCost + ", [Water]: " + waterCost + ", [Energy]: " + energyCost);
+    }
 }

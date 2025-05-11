@@ -1,7 +1,8 @@
 package bonus;
 
 import bonus.ResourceBonus.ResourceType;
-import trader.ResourceBundle;
+// import trader.ResourceBundle;
+import player.Player;
 
 public interface Bonus {
   // Getters for the bonus values
@@ -11,17 +12,6 @@ public interface Bonus {
 
   public int getFood();
 
-  public int getEnergy();
-
-  // Player calls these method to deplete the bonus from the terrain
-  public void useGold();
-
-  public void useWater();
-
-  public void useFood();
-
-  public void useEnergy();
-
-  // Method for getting the resources gained when used 
-  public ResourceBundle useBonus();
+  // Method for getting the resources gained when used
+  public void useBonus(Player player);
 }

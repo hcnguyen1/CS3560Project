@@ -5,7 +5,11 @@ public abstract class Trader {
 
     protected int counterOffersGiven = 0;
     protected int maxCounterOffers;
+    public String type = "";
 
+    public String getType() {
+        return type;
+    }
 
     public boolean canCounterOffer() {
         return counterOffersGiven < maxCounterOffers;
@@ -15,7 +19,7 @@ public abstract class Trader {
         counterOffersGiven++;
     }
 
-    public abstract boolean isOfferAcceptable(Offer offer);
+    // public abstract boolean isOfferAcceptable(Offer offer);
 
-    public abstract Offer generateCounterOffer(Offer playerOffer);
+    // public abstract Offer generateCounterOffer(Offer playerOffer);
 }

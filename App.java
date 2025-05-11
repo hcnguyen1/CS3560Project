@@ -47,12 +47,17 @@ public class App {
                 Helper.printTerrainBonuses(player, t);
 
                 // this function checks if theres a trader in the current terrain.
-                Helper.checkTrader(t);
+                if (Helper.checkTrader(t)) {
+                    Helper.interactWithTrader(player, t);
+                    System.out.println("\nPlayer part ways with the trader.\n");
+                }
 
                 // this function allows the player to move the brain class
                 player.makeMove();
-                //Thread.sleep(2000);
+                // Thread.sleep(2000);
                 System.out.println("\nPlayer is now " + player.getDirection(player.getX(), player.getY()));
+                // Prints terrain cost
+                System.out.println(player.getCurrentTerrain().getCost());
 
                 // this is a delayed timer to make sure the print screen isn't
                 // spitting out all the information at once

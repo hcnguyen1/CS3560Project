@@ -22,9 +22,9 @@ public class Lake extends Terrain {
     return this.NAME;
   }
 
-    @Override
+  @Override
   public Bonus getBonus() {
-    return new ResourceBonus(ResourceType.WATER, BONUS_WATER_AMOUNT, false);
+    return new ResourceBonus(ResourceBonus.ResourceType.WATER, BONUS_WATER_AMOUNT, false);
   }
 
   @Override

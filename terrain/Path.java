@@ -60,6 +60,6 @@ public class Path {
   public Terrain getDestination() {
     return Map
       .getInstance()
-      .getTerrain(movesX[currentStep], movesY[currentStep]);
+      .getTerrain(movesX[pathLength-1], movesY[pathLength-1]);
   }
 }
