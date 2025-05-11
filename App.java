@@ -48,12 +48,13 @@ public class App {
                 // Prints out the players current position and their current terrain.
                 Terrain t = Map.getInstance().getTerrain(player.getX(), player.getY());
                 System.out.println("Current Terrain: " + t.getNameTerrain());
+                t.getStory();
                 // This function prints out the bonuses dependent on the terrain.
                 Helper.printTerrainBonuses(player, t);
 
                 // this function checks if theres a trader in the current terrain.
                 if (Helper.checkTrader(t)) {
-                    Helper.interactWithTrader(player, t);
+                    Helper.interactWithTrader(player, t, difficulty);
                     System.out.println("\nPlayer part ways with the trader.\n");
                 }
 

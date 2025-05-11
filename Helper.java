@@ -57,10 +57,13 @@ public class Helper {
     public static void printTerrainBonuses(Player player, Terrain t) {
         if (t.hasGoldBonus()) {
             System.out.println("\nThere is gold here!");
+            player.useBonus();
         } else if (t.hasWaterBonus()) {
             System.out.println("\nThere is water here!");
+            player.useBonus();
         } else if (t.hasFoodBonus()) {
             System.out.println("\nThere is food here!");
+            player.useBonus();
         } else {
             System.out.println("\nNo usable resources here...");
         }
@@ -85,7 +88,7 @@ public class Helper {
         }
     }
 
-    public static void interactWithTrader(Player player, Terrain t) {
+    public static void interactWithTrader(Player player, Terrain t, Difficulty d) {
 
         // the type of trader is now assigned here.
         Trader trader = t.getTrader();
@@ -104,13 +107,18 @@ public class Helper {
                 }
             }
         } else if ("Gold".equals(trader.getType())) {
+
+            if (player.getGoldAmount() == d.getMaxGold()) {
+                System.out.println("\nI cannot hold anymore gold.");
+                flag = false;
+            }
+
             if (player.getFoodAmount() < 2) {
                 if (player.getWaterAmount() < 2) {
                     System.out.println("I just checked my bag and I don't have any resources to spare.");
                     flag = false;
                 }
             }
-
         } else if ("Food".equals(trader.getType())) {
             if (player.getGoldAmount() < 2) {
                 if (player.getWaterAmount() < 2) {
@@ -119,7 +127,6 @@ public class Helper {
                 }
             }
         }
-
         while (flag) {
 
             System.out.println("Trying to trade...");
@@ -127,7 +134,7 @@ public class Helper {
                 offer = false;
             }
 
-            if (offer == true && flag == true) {
+            if (offer == true) {
                 System.out.println("Trader has accepted your trade.");
                 // whatever type of trader, the trade will go through
 
@@ -137,13 +144,13 @@ public class Helper {
 
                     switch (num) {
                         case 1:
-                            System.out.println("traded 2 Food for 1 Water");
+                            System.out.println("Traded 2 Food for 1 Water");
                             newFood = player.getFoodAmount() - 2;
                             player.food = newFood;
                             player.water++;
                             break;
                         case 2:
-                            System.out.println("traded 2 Gold for 1 Water");
+                            System.out.println("Traded 2 Gold for 1 Water");
                             newGold = player.getGoldAmount() - 2;
                             player.gold = newGold;
                             player.water++;
@@ -155,13 +162,13 @@ public class Helper {
 
                     switch (num) {
                         case 1:
-                            System.out.println("traded 2 Food for 1 Gold");
+                            System.out.println("Traded 2 Food for 1 Gold");
                             newFood = player.getFoodAmount() - 2;
                             player.food = newFood;
                             player.gold++;
                             break;
                         case 2:
-                            System.out.println("traded 2 Water for 1 Gold");
+                            System.out.println("Traded 2 Water for 1 Gold");
                             newWater = player.getWaterAmount() - 2;
                             player.water = newWater;
                             player.gold++;
@@ -173,13 +180,13 @@ public class Helper {
 
                     switch (num) {
                         case 1:
-                            System.out.println("traded 2 Water for 1 Food");
+                            System.out.println("Traded 2 Water for 1 Food");
                             newWater = player.getWaterAmount() - 2;
                             player.water = newWater;
                             player.food++;
                             break;
                         case 2:
-                            System.out.println("traded 2 Gold for 1 Food");
+                            System.out.println("Traded 2 Gold for 1 Food");
                             newGold = player.getGoldAmount() - 2;
                             player.gold = newGold;
                             player.food++;
@@ -231,13 +238,13 @@ public class Helper {
 
                         switch (num) {
                             case 1:
-                                System.out.println("traded 3 Food for 1 Water");
+                                System.out.println("Traded 3 Food for 1 Water");
                                 newFood = player.getFoodAmount() - 3;
                                 player.food = newFood;
                                 player.water++;
                                 break;
                             case 2:
-                                System.out.println("traded 3 Gold for 1 Water");
+                                System.out.println("Traded 3 Gold for 1 Water");
                                 newGold = player.getGoldAmount() - 3;
                                 player.gold = newGold;
                                 player.water++;
@@ -249,13 +256,13 @@ public class Helper {
 
                         switch (num) {
                             case 1:
-                                System.out.println("traded 3 Food for 1 Gold");
+                                System.out.println("Traded 3 Food for 1 Gold");
                                 newFood = player.getFoodAmount() - 3;
                                 player.food = newFood;
                                 player.gold++;
                                 break;
                             case 2:
-                                System.out.println("traded 3 Water for 1 Gold");
+                                System.out.println("Traded 3 Water for 1 Gold");
                                 newWater = player.getWaterAmount() - 3;
                                 player.water = newWater;
                                 player.gold++;
@@ -268,13 +275,13 @@ public class Helper {
 
                         switch (num) {
                             case 1:
-                                System.out.println("traded 3 Water for 1 Food");
+                                System.out.println("Traded 3 Water for 1 Food");
                                 newWater = player.getWaterAmount() - 3;
                                 player.water = newWater;
                                 player.food++;
                                 break;
                             case 2:
-                                System.out.println("traded 3 Gold for 1 Food");
+                                System.out.println("Traded 3 Gold for 1 Food");
                                 newGold = player.getGoldAmount() - 3;
                                 player.gold = newGold;
                                 player.food++;

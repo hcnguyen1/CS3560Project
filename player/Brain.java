@@ -85,12 +85,12 @@ public class Brain {
     }
 
     private void energyConversion() {
-        System.out.println("Not enough energy. Using energy conservation strategy.");
+        System.out.println("I'm tired. My energy below my threshold. Using energy conservation strategy.");
         this.stay();
     }
 
     private void scavengerStrategy() {
-        System.out.println("Critical. Low on food and water. Using scavenger strategy.");
+        System.out.println("Critical. My food and water are below my threshold. Using scavenger strategy.");
         // Get the closest and second closest resource paths (food or water)
         Path closest;
         Path second;
@@ -126,7 +126,7 @@ public class Brain {
             currentPath.takePath();
 
             // If the new tile has a resource bonus, collect it
-            player.useBonus();
+            // player.useBonus();
         } else {
             // check second option; if food lower than water, check water
             // if water lower than food, check food
@@ -149,7 +149,7 @@ public class Brain {
                 currentPath = bestPath;
                 currentPath.takePath();
 
-                player.useBonus();
+                // player.useBonus();
             } else {
                 // If no valid paths were found, move east
                 currentPath = vision.eastMostPath();
@@ -165,14 +165,16 @@ public class Brain {
 
         // If food is below the threshold, look for the two closest food sources
         if (player.getFoodAmount() < foodThreshold) {
-            System.out.println("I have a lot of water but not a lot of food. Using equalizer strategy.");
+            System.out.println(
+                    "I have a lot of water but not a lot of food, it's below my threshold. Using equalizer strategy.");
             first = vision.closestFood();
             second = vision.secondClosestFood();
         }
 
         // If water is below the threshold, look for the two closest water sources
         if (player.getWaterAmount() < waterThreshold) {
-            System.out.println("I have a lot of food but not a lot of water. Using equalizer strategy.");
+            System.out.println(
+                    "I have a lot of food but not a lot of water, it's below my threshold. Using equalizer strategy.");
             first = vision.closestWater();
             second = vision.secondClosestWater();
         }
@@ -180,7 +182,7 @@ public class Brain {
         // Always consider a path to the closest trader
         Path trader = vision.closestTrader();
         if (player.getGoldAmount() > goldThreshold) {
-            System.out.println("I have a good amount of gold. Looking for a trader.");
+            System.out.println("I have a good amount of gold, it's above my threshold. Looking for a trader.");
         }
 
         // Choose the best path out of the two resources and the trader
@@ -192,7 +194,7 @@ public class Brain {
             currentPath.takePath();
 
             // Use bonus on the tile
-            player.useBonus();
+            // player.useBonus();
 
         } else {
             // If no valid paths were found, move east
@@ -207,14 +209,14 @@ public class Brain {
 
         // If food is below the threshold, get the two closest food paths
         if (player.getFoodAmount() < foodThreshold) {
-            System.out.println("Low on food. Using low on one strategy.");
+            System.out.println("I'm low on food, it's below my threshold. Using low on one strategy.");
             p1 = vision.closestFood();
             p2 = vision.secondClosestFood();
         }
 
         // If water is below the threshold, get the two closest water paths
         if (player.getWaterAmount() < waterThreshold) {
-            System.out.println("Low on water. Using low on one strategy.");
+            System.out.println("I'm low on water, it's below my threshold. Using low on one strategy.");
             p1 = vision.closestWater();
             p2 = vision.secondClosestWater();
         }
@@ -229,7 +231,7 @@ public class Brain {
             currentPath.takePath();
 
             // Use any bonus on the new tile
-            player.useBonus();
+            // player.useBonus();
 
         } else {
             // If no valid paths were found, move east
@@ -248,7 +250,7 @@ public class Brain {
 
         // use the bonuses at the terrain the player enters
         // the path object takes care of the costs
-        player.useBonus();
+        // player.useBonus();
     }
 
     // compare all paths, including current one

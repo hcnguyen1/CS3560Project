@@ -13,11 +13,10 @@ public class Terrain {
 
   // Constructor
   public Terrain(
-    int movementCost,
-    int waterCost,
-    int foodCost,
-    float spawnRate
-  ) {
+      int movementCost,
+      int waterCost,
+      int foodCost,
+      float spawnRate) {
     costs = new Cost(movementCost, waterCost, foodCost);
     this.spawnRate = spawnRate;
   }
@@ -63,5 +62,8 @@ public class Terrain {
 
   public String getNameTerrain() {
     return "Terrain";
+  }
+
+  public void getStory() {
   }
 }
