@@ -39,19 +39,30 @@ public class ResourceBonus implements Bonus {
   public void useBonus(Player player) {
     if (!collectedThisTurn && amount > 0) {
       int gain = 0;
-      markCollected();
       switch (type) {
         case GOLD:
-          player.useGold(this.getGold());
-          System.out.println("Gold acquired!");
+          gain = Math.min(amount, player.maxGold - player.gold);
+          if (gain > 0) {
+            player.useGold(gain);
+            System.out.println("Gold acquired!");
+            markCollected();
+          }
           break;
         case WATER:
-          player.useWater(this.getWater());
-          System.out.println("Water acquired!");
+          gain = Math.min(amount, player.maxWater - player.water);
+          if (gain > 0) {
+            player.useWater(gain);
+            System.out.println("Water acquired!");
+            markCollected();
+          }
           break;
         case FOOD:
-          player.useFood(this.getFood());
-          System.out.println("Food acquired!");
+          gain = Math.min(amount, player.maxFood - player.food);
+          if (gain > 0) {
+            player.useFood(gain);
+            System.out.println("Food acquired!");
+            markCollected();
+          }
           break;
         default:
           break;

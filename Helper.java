@@ -57,17 +57,13 @@ public class Helper {
     public static void printTerrainBonuses(Player player, Terrain t) {
         if (t.hasGoldBonus()) {
             System.out.println("\nThere is gold here!");
-            player.useBonus();
         } else if (t.hasWaterBonus()) {
             System.out.println("\nThere is water here!");
-            player.useBonus();
         } else if (t.hasFoodBonus()) {
             System.out.println("\nThere is food here!");
-            player.useBonus();
         } else {
             System.out.println("\nNo usable resources here...");
         }
-
     }
 
     public static boolean checkTrader(Terrain t) {
@@ -171,7 +167,6 @@ public class Helper {
                             player.gold++;
                             break;
                     }
-
                 } else if ("Food".equals(trader.getType())) {
                     // subtract the currencies requested
                     int num = (int) (Math.random() * 2) + 1;
@@ -286,7 +281,6 @@ public class Helper {
                                 break;
                         }
                     }
-
                     offerCounter--;
                 }
                 if (offerCounter == 0) {

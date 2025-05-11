@@ -16,20 +16,15 @@ public class Plains extends Terrain {
     super(MOVEMENT_COST, WATER_COST, FOOD_COST, SPAWN_RATE);
   }
 
-  /*  getTrader() and getBonus() for Player.java to use
-  public Bonus getTrader() {
-    return null;
-  } */
+  /*
+   * getTrader() and getBonus() for Player.java to use
+   * public Bonus getTrader() {
+   * return null;
+   * }
+   */
 
   @Override
   public Bonus getBonus() {
-    if (hasFoodBonus()) {
-      return new ResourceBonus(ResourceType.FOOD, 1, false);
-    } else if (hasWaterBonus()) {
-      return new ResourceBonus(ResourceType.WATER, 1, false);
-    } else if (hasGoldBonus()) {
-      return new ResourceBonus(ResourceType.GOLD, 1, false);
-    }
     return null;
   }
 

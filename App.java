@@ -39,10 +39,15 @@ public class App {
                 // Make the player move if they are not dead
                 // Display the player's current state
 
+                // this function allows the player to move the brain class
+                player.makeMove();
+                // Thread.sleep(2000);
+                System.out.println("\nPlayer is now " + player.getDirection(player.getX(), player.getY()));
+                // Prints terrain cost
+                System.out.println(player.getCurrentTerrain().getCost());
                 // Prints out the players current position and their current terrain.
                 Terrain t = Map.getInstance().getTerrain(player.getX(), player.getY());
                 System.out.println("Current Terrain: " + t.getNameTerrain());
-
                 // This function prints out the bonuses dependent on the terrain.
                 Helper.printTerrainBonuses(player, t);
 
@@ -51,13 +56,6 @@ public class App {
                     Helper.interactWithTrader(player, t);
                     System.out.println("\nPlayer part ways with the trader.\n");
                 }
-
-                // this function allows the player to move the brain class
-                player.makeMove();
-                // Thread.sleep(2000);
-                System.out.println("\nPlayer is now " + player.getDirection(player.getX(), player.getY()));
-                // Prints terrain cost
-                System.out.println(player.getCurrentTerrain().getCost());
 
                 // this is a delayed timer to make sure the print screen isn't
                 // spitting out all the information at once

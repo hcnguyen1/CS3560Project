@@ -16,10 +16,10 @@ public class Player {
   private Brain brain = new Brain(this);
   public int gold = 0;
 
-  private int maxWater;
-  private int maxFood;
-  private int maxEnergy;
-  private int maxGold;
+  public int maxWater;
+  public int maxFood;
+  public int maxEnergy;
+  public int maxGold;
 
   public int water;
   public int food;
